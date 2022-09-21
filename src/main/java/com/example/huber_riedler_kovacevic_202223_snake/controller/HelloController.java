@@ -1,4 +1,4 @@
-package com.example.huber_riedler_kovacevic_202223_snake;
+package com.example.huber_riedler_kovacevic_202223_snake.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
