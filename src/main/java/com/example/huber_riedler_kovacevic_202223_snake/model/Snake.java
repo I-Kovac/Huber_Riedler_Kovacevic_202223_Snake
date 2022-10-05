@@ -4,13 +4,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Snake {
-
     protected int length;
+    protected int [] currentPosition;
     protected List<int[]> lastPositions = new ArrayList<>();
 
 
     public Snake(){
         length=1;
+    }
+
+    public int[] getCurrentPosition() {
+        return currentPosition;
     }
 
     public void setLastPosition(int row, int col){
