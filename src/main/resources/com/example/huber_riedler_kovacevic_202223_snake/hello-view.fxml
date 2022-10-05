@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.HelloController">
    <top>
       <HBox prefHeight="56.0" prefWidth="600.0" style="-fx-background-color: green;" BorderPane.alignment="TOP_RIGHT">
          <children>
@@ -34,7 +34,7 @@
       </HBox>
    </top>
    <center>
-      <GridPane gridLinesVisible="true" maxHeight="293.0" maxWidth="293.0" minHeight="293.0" minWidth="293.0" prefHeight="293.0" prefWidth="293.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER">
+      <GridPane fx:id="playfield" gridLinesVisible="true" maxHeight="395.0" maxWidth="395.0" minHeight="293.0" minWidth="293.0" prefHeight="395.0" prefWidth="395.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -62,7 +62,7 @@
       </GridPane>
    </center>
    <left>
-      <VBox prefHeight="293.0" prefWidth="142.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="393.0" prefWidth="160.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
          <children>
             <Label text="ESC: End Game">
                <font>
@@ -78,17 +78,17 @@
       </VBox>
    </left>
    <right>
-      <VBox prefHeight="293.0" prefWidth="167.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="393.0" prefWidth="193.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
       <HBox prefHeight="51.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <HBox alignment="BOTTOM_LEFT" prefHeight="75.0" prefWidth="600.0" style="-fx-background-color: green;">
+            <HBox alignment="BOTTOM_LEFT" prefHeight="51.0" prefWidth="755.0" style="-fx-background-color: green;">
                <children>
-                  <ToggleButton mnemonicParsing="false" text="ON" />
-                  <HBox alignment="BOTTOM_RIGHT" prefHeight="51.0" prefWidth="565.0">
+                  <ToggleButton fx:id="musicbutton" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="ON" />
+                  <HBox alignment="BOTTOM_RIGHT" prefHeight="51.0" prefWidth="608.0">
                      <children>
-                        <Slider />
+                        <Slider fx:id="musicslider" />
                      </children>
                   </HBox>
                </children>

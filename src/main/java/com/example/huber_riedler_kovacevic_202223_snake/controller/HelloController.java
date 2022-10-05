@@ -2,13 +2,19 @@ package com.example.huber_riedler_kovacevic_202223_snake.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.GridPane;
 
 public class HelloController {
-    @FXML
-    private Label welcomeText;
+    public GridPane playfield;
+    public Label points;
+    public ToggleButton musicbutton;
+    public Slider musicslider;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+
+    public void initialize(){
+        points.setText("1");
     }
+
 }
