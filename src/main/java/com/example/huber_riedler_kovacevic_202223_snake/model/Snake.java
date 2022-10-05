@@ -21,7 +21,6 @@ public class Snake {
 
     public  void move() {
         lastPositions.add(currentPosition.clone());
-        System.out.println(Arrays.toString(lastPositions.get(0)));
         if (lastPositions.size() > length){
             lastPositions.remove(0);
         }

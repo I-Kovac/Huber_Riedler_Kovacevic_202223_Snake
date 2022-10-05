@@ -8,8 +8,9 @@ public class Playfield {
     public static int RIGHT = 1;
     public static int DOWN = 2;
     public static int LEFT = 3;
-    Snake snake;
 
+    public Snake snake;
+    public int[] currentPositionOfFood;
 
 
 
@@ -17,6 +18,7 @@ public class Playfield {
         snake = new Snake();
         snake.currentPosition = new int[]{0, 0};
         snake.direction=DOWN;
+        currentPositionOfFood = new int[]{2,0};
     }
 
 
@@ -33,6 +35,9 @@ public class Playfield {
     }
 
 
+    public void foodFound() {
+        snake.eatFood();
+    }
 }
  class  MoveSnake implements Runnable {
     Snake snakeToMove;
@@ -45,7 +50,7 @@ public class Playfield {
             if (true) {
                 Thread.sleep(900);
                 snakeToMove.move();
-                System.out.println("Thread:"+ Arrays.toString(snakeToMove.currentPosition) +" "+ Arrays.toString(snakeToMove.lastPositions.get(0)));
+                System.out.println("Thread:"+ Arrays.toString(snakeToMove.currentPosition) +" "+ Arrays.toString(snakeToMove.lastPositions.get(snakeToMove.length-1)));
 
             }
         } catch (InterruptedException e) {
