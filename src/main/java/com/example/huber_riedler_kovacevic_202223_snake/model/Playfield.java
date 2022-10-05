@@ -16,6 +16,7 @@ public class Playfield {
 
 
     public Playfield() {
+
         direction = Playfield.RIGHT;
         snake = new Snake();
         snake.currentPosition = new int[]{0, 0};
@@ -38,7 +39,7 @@ public class Playfield {
         public void run() {
             try {if (true){
                 Thread.sleep(500);
-
+                snake.move(direction);
             }
             } catch (InterruptedException e) {
                 e.printStackTrace();

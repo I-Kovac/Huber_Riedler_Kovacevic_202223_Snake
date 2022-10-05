@@ -1,24 +1,41 @@
 package com.example.huber_riedler_kovacevic_202223_snake.model;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Snake {
     protected int length;
-    protected int [] currentPosition;
+    protected int[] currentPosition;
     protected List<int[]> lastPositions = new ArrayList<>();
 
 
-    public Snake(){
-        length=1;
+    public Snake() {
+        length = 1;
     }
 
     public int[] getCurrentPosition() {
         return currentPosition;
     }
 
-    public void setLastPosition(int row, int col){
-        lastPositions.add(new int[]{row, col});
-        System.out.println(Arrays.toString(lastPositions.stream().findFirst().get()));
+    public void move(int direction) {
+        lastPositions.add(currentPosition);
+        if (lastPositions.size() > length){
+            lastPositions.remove(0);
+        }
+
+        if (direction == Playfield.UP) {
+            currentPosition[0]++;
+        } else if (direction == Playfield.DOWN) {
+            currentPosition[0]--;
+        } else if (direction == Playfield.RIGHT) {
+            currentPosition[1]++;
+        } else if (direction == Playfield.LEFT) {
+            currentPosition[1]--;
+        }
+    }
+
+    public void eatFood(){
+        length++;
     }
 }
