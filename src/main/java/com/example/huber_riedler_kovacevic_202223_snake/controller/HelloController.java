@@ -1,20 +1,31 @@
 package com.example.huber_riedler_kovacevic_202223_snake.controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.GridPane;
+import com.example.huber_riedler_kovacevic_202223_snake.HelloApplication;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 
 public class HelloController {
-    public GridPane playfield;
-    public Label points;
-    public ToggleButton musicbutton;
-    public Slider musicslider;
 
-
-    public void initialize(){
-        points.setText("1");
+    public void playButtonClick(ActionEvent actionEvent) throws IOException {
+        openGame();
     }
 
+    public void loadfxmlFile(String path) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(path));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Game");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void openGame() throws IOException {
+        loadfxmlFile("playfield.fxml");
+
+    }
 }
