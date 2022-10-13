@@ -4,6 +4,7 @@ package com.example.huber_riedler_kovacevic_202223_snake.controller;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Playfield;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Position;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Snake;
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,60 +24,31 @@ public class PlayfieldController {
     public Circle[][] circles;
     public boolean gameRunning = true;
     public boolean foodSpawned = true;
+    private Playfield playfield;
+    private Position foodPosition;
+    private Snake snake;
 
     public void initialize() {
         timeLabel.setText("");
         lengthLabel.setText("");
+        GridPane gridPane = buildPlayfield();
+        borderPane.setBottom(gridPane);
     }
 
     public void goButtonClick(ActionEvent actionEvent) throws InterruptedException {
-        goButton.setVisible(false);
-        goButton.setDisable(true);
+      //  goButton.setVisible(false);
+       // goButton.setDisable(true);
         play();
     }
 
     public void play() throws InterruptedException {
-        Snake snake = new Snake();
-        Playfield playfield = new Playfield(Playfield.COLS, Playfield.ROWS);
-
-        GridPane gridPane = buildPlayfield();
-        borderPane.setCenter(gridPane);
-        Position foodPosition = generateFood();
-
-        while (gameRunning) {
-
-            playfield.setPosition(snake.getCurrentPosition().getCol(), snake.getCurrentPosition().getRow(), Playfield.SNAKE);
-            for (int i = 0; i < snake.getLastPositions().size(); i++) {
-                playfield.setPosition(snake.getLastPositions().get(i).getCol(), snake.getLastPositions().get(i).getRow(), Playfield.SNAKE);
-            }
-            if (!foodSpawned) {
-                foodPosition = generateFood();
-                foodSpawned = true;
-            }
-
-            playfield.setPosition(foodPosition.getCol(), foodPosition.getRow(), Playfield.FOOD);
+        playfield = new Playfield(Playfield.COLS, Playfield.ROWS);
+        snake = new Snake();
+        foodPosition = generateFood();
+        AnimationTimerClass animationTimerClass = new AnimationTimerClass();
+        animationTimerClass.start();
 
 
-            updatePlayfield(playfield.getPlayfield());
-
-            if (playfield.checkForFood(snake.getDirection(), snake.getCurrentPosition())) {
-                snake.eat();
-                foodSpawned = false;
-            } else {
-                if (snake.getLastPositions().size() > 0) {
-                    playfield.setPosition(snake.getLastPositions().get(0).getCol(), snake.getLastPositions().get(0).getRow(), Playfield.EMPTY);
-                }
-                snake.move();
-            }
-
-            if (snake.getCurrentPosition().getRow() >= Playfield.ROWS || snake.getCurrentPosition().getRow() < 0 ||
-                    snake.getCurrentPosition().getCol() >= Playfield.COLS || snake.getCurrentPosition().getCol() < 0) {
-                gameRunning = false;
-            }
-
-            Thread.sleep(500);
-
-        }
 
     }
 
@@ -110,10 +82,54 @@ public class PlayfieldController {
     }
 
     public Position generateFood() {
-        return new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS - 1));
+        return new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS-1));
     }
 
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
+    }
+
+    class AnimationTimerClass extends AnimationTimer {
+
+        private long lastupdate = 0;
+
+        @Override
+        public void handle(long l) {
+            if (l - lastupdate >= 12_000_000 && gameRunning){
+                playfield.setPosition(snake.getCurrentPosition().getCol(), snake.getCurrentPosition().getRow(), Playfield.SNAKE);
+                for (int i = 0; i < snake.getLastPositions().size(); i++) {
+                    playfield.setPosition(snake.getLastPositions().get(i).getCol(), snake.getLastPositions().get(i).getRow(), Playfield.SNAKE);
+                }
+                if (!foodSpawned) {
+                    foodPosition = generateFood();
+                    foodSpawned = true;
+                }
+
+                playfield.setPosition(foodPosition.getCol(), foodPosition.getRow(), Playfield.FOOD);
+
+                updatePlayfield(playfield.getPlayfield());
+
+                if (playfield.checkForFood(snake.getDirection(), snake.getCurrentPosition())) {
+                    snake.eat();
+                    foodSpawned = false;
+                } else {
+                    if (snake.getLastPositions().size() > 0) {
+                        playfield.setPosition(snake.getLastPositions().get(0).getCol(), snake.getLastPositions().get(0).getRow(), Playfield.EMPTY);
+                    }
+                    snake.move();
+                }
+
+                if (snake.getCurrentPosition().getRow() >= Playfield.ROWS || snake.getCurrentPosition().getRow() < 0 ||
+                        snake.getCurrentPosition().getCol() >= Playfield.COLS || snake.getCurrentPosition().getCol() < 0) {
+                    gameRunning = false;
+                }
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            lastupdate = l;
+        }
     }
 }
