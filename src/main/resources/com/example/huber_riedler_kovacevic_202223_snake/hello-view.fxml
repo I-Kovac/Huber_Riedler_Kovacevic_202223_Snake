@@ -33,7 +33,7 @@
             </Label>
             <ComboBox fx:id="music" prefWidth="150.0" />
             <Slider fx:id="volume" prefHeight="42.0" prefWidth="150.0" />
-            <ToggleButton fx:id="onoff" mnemonicParsing="false" text="ON" />
+            <ToggleButton fx:id="onoff" mnemonicParsing="false" onMouseClicked="#music_button" text="ON" />
          </children>
       </VBox>
    </right>
