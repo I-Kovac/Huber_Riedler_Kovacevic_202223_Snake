@@ -33,6 +33,7 @@ public class Snake {
 
     public void eat(){
         length++;
+
         move();
     }
 

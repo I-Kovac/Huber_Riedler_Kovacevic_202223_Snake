@@ -14,6 +14,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.Objects;
+
 public class PlayfieldController {
 
 
@@ -27,6 +29,7 @@ public class PlayfieldController {
     private Playfield playfield;
     private Position foodPosition;
     private Snake snake;
+    public int difficulty=250;
 
     public void initialize() {
         timeLabel.setText("");
@@ -124,12 +127,20 @@ public class PlayfieldController {
                     gameRunning = false;
                 }
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(difficulty);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             lastupdate = l;
+        }
+    }
+
+    public void setDifficulty(Object value) {
+        if(Objects.equals(value.toString(), "Pro")){
+            difficulty=100;
+        }else if(Objects.equals(value.toString(), "Amateur")){
+            difficulty=175;
         }
     }
 }

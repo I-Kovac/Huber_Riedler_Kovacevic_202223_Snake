@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.HelloController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.HelloController">
    <top>
       <Label alignment="CENTER" prefHeight="70.0" prefWidth="92.0" text="Snake" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
@@ -17,4 +20,21 @@
    <center>
       <Button mnemonicParsing="false" onAction="#playButtonClick" text="Play" BorderPane.alignment="CENTER" />
    </center>
+   <bottom>
+      <ComboBox fx:id="difficulty" prefWidth="150.0" promptText="Select Difficulty" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="31.0" prefWidth="84.0" text="Select Song:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="music" prefWidth="150.0" />
+            <Slider fx:id="volume" prefHeight="42.0" prefWidth="150.0" />
+            <ToggleButton fx:id="onoff" mnemonicParsing="false" text="ON" />
+         </children>
+      </VBox>
+   </right>
 </BorderPane>
