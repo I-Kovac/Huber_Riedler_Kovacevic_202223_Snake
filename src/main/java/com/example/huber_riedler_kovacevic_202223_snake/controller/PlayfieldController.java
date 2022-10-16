@@ -17,9 +17,6 @@ import javafx.scene.shape.Circle;
 import java.util.Objects;
 
 public class PlayfieldController {
-
-
-    public Label timeLabel;
     public Label lengthLabel;
     public Button goButton;
     public BorderPane borderPane;
@@ -29,18 +26,15 @@ public class PlayfieldController {
     private Playfield playfield;
     private Position foodPosition;
     private Snake snake;
-    public int difficulty=250;
+    public int difficulty = 250;
 
     public void initialize() {
-        timeLabel.setText("");
         lengthLabel.setText("");
         GridPane gridPane = buildPlayfield();
         borderPane.setBottom(gridPane);
     }
 
-    public void goButtonClick(ActionEvent actionEvent) throws InterruptedException {
-      //  goButton.setVisible(false);
-       // goButton.setDisable(true);
+    public void goButtonClick() throws InterruptedException {
         play();
     }
 
@@ -50,9 +44,6 @@ public class PlayfieldController {
         foodPosition = generateFood();
         AnimationTimerClass animationTimerClass = new AnimationTimerClass();
         animationTimerClass.start();
-
-
-
     }
 
     public GridPane buildPlayfield() {
@@ -65,8 +56,6 @@ public class PlayfieldController {
                 gridPane.add(circles[i][j], i, j);
             }
         }
-
-
         return gridPane;
     }
 
@@ -85,7 +74,7 @@ public class PlayfieldController {
     }
 
     public Position generateFood() {
-        return new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS-1));
+        return new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS - 1));
     }
 
     public int getRandomNumber(int min, int max) {
@@ -93,12 +82,11 @@ public class PlayfieldController {
     }
 
     class AnimationTimerClass extends AnimationTimer {
-
         private long lastupdate = 0;
 
         @Override
         public void handle(long l) {
-            if (l - lastupdate >= 12_000_000 && gameRunning){
+            if (l - lastupdate >= 12_000_000 && gameRunning) {
                 playfield.setPosition(snake.getCurrentPosition().getCol(), snake.getCurrentPosition().getRow(), Playfield.SNAKE);
                 for (int i = 0; i < snake.getLastPositions().size(); i++) {
                     playfield.setPosition(snake.getLastPositions().get(i).getCol(), snake.getLastPositions().get(i).getRow(), Playfield.SNAKE);
@@ -126,6 +114,7 @@ public class PlayfieldController {
                         snake.getCurrentPosition().getCol() >= Playfield.COLS || snake.getCurrentPosition().getCol() < 0) {
                     gameRunning = false;
                 }
+                setLengthLabel(snake.getLength());
                 try {
                     Thread.sleep(difficulty);
                 } catch (InterruptedException e) {
@@ -137,10 +126,14 @@ public class PlayfieldController {
     }
 
     public void setDifficulty(Object value) {
-        if(Objects.equals(value.toString(), "Pro")){
-            difficulty=100;
-        }else if(Objects.equals(value.toString(), "Amateur")){
-            difficulty=175;
+        if (Objects.equals(value.toString(), "Pro")) {
+            difficulty = 100;
+        } else if (Objects.equals(value.toString(), "Amateur")) {
+            difficulty = 175;
         }
+    }
+
+    public void setLengthLabel(int lengthLabel) {
+        this.lengthLabel.setText(String.valueOf(lengthLabel));
     }
 }
