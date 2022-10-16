@@ -4,19 +4,20 @@ package com.example.huber_riedler_kovacevic_202223_snake.controller;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Playfield;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Position;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Snake;
+import com.example.huber_riedler_kovacevic_202223_snake.model.SnakeGame;
 import javafx.animation.AnimationTimer;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.Objects;
 
 public class PlayfieldController {
+    public SnakeGame snakeGame;
     public Label lengthLabel;
     public Button goButton;
     public BorderPane borderPane;
@@ -28,10 +29,14 @@ public class PlayfieldController {
     private Snake snake;
     public int difficulty = 250;
 
-    public void initialize() {
+
+    public void initialize() throws InterruptedException {
+        snakeGame = new SnakeGame(new Playfield(Playfield.COLS,Playfield.ROWS),new Snake());
+        Thread.sleep(1000);
         lengthLabel.setText("");
         GridPane gridPane = buildPlayfield();
         borderPane.setBottom(gridPane);
+
     }
 
     public void goButtonClick() throws InterruptedException {
@@ -80,6 +85,7 @@ public class PlayfieldController {
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
+
 
     class AnimationTimerClass extends AnimationTimer {
         private long lastupdate = 0;
@@ -136,4 +142,9 @@ public class PlayfieldController {
     public void setLengthLabel(int lengthLabel) {
         this.lengthLabel.setText(String.valueOf(lengthLabel));
     }
+
+    public void playMusic(String value) {
+        snakeGame.playMusic(value);
+    }
+
 }
