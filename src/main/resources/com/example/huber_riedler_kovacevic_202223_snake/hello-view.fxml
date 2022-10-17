@@ -18,7 +18,10 @@
       </Label>
    </top>
    <center>
-      <Button mnemonicParsing="false" onAction="#playButtonClick" text="Play" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#playButtonClick" prefHeight="64.0" prefWidth="180.0" text="Play" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
    </center>
    <bottom>
       <ComboBox fx:id="difficulty" prefWidth="150.0" promptText="Select Difficulty" BorderPane.alignment="CENTER" />

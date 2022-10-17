@@ -1,25 +1,24 @@
 package com.example.huber_riedler_kovacevic_202223_snake.model;
 
-import javafx.scene.control.ComboBox;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 
-public class SnakeGame {
-    protected Playfield playfield;
-    protected Snake snake;
+public class Game {
+    public Playfield playfield;
     MediaPlayer mediaPlayer;
 
-    public SnakeGame(Playfield playfield, Snake snake) {
+    public Game(Playfield playfield) {
         this.playfield = playfield;
-        this.snake = snake;
-    }
+            }
 
 
-    public void playMusic(String value){
+    public void playMusic(String value,double volume){
         Media media = new Media(new File("music\\" + value).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
+        mediaPlayer.setVolume(volume);
     }
 }

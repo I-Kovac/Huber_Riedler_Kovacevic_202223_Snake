@@ -44,15 +44,14 @@ public class HelloController {
     public void playButtonClick() throws IOException {
         menu.stopMusic();
         openGame();
-
     }
 
     public void openGame() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("playfield.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         PlayfieldController controller = fxmlLoader.<PlayfieldController>getController();
-        controller.setDifficulty(difficulty.getValue());
-        controller.playMusic(music.getValue().toString());
+        controller.setDifficulty(menu.getdifficulty(difficulty));
+        controller.playMusic(music.getValue().toString(),menu.mediaPlayer.getVolume());
         Stage stage = new Stage();
         stage.setTitle("Game");
         stage.setScene(scene);

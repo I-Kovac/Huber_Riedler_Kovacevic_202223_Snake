@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class Menu {
 
-    protected MediaPlayer mediaPlayer;
+    public MediaPlayer mediaPlayer;
 
 
     public ComboBox addListofFiles(ComboBox comboBox){
@@ -67,5 +67,15 @@ public class Menu {
             onoff.setText("ON");
             mediaPlayer.play();
         }
+    }
+
+    public Object getdifficulty(ComboBox comboBox) {
+        int difficulty=250;
+        if (Objects.equals(comboBox.getValue().toString(), "Pro")) {
+            difficulty = 100;
+        } else if (Objects.equals(comboBox.getValue().toString(), "Amateur")) {
+            difficulty = 175;
+        }
+        return difficulty;
     }
 }
