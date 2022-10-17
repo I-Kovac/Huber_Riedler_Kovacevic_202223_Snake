@@ -40,6 +40,10 @@ public class Snake {
         return direction;
     }
 
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
     public synchronized void changeDirection(String directionString){
         switch (directionString) {
             case "W":

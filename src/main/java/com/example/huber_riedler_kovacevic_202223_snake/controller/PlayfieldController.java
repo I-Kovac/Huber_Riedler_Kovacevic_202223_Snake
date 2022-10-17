@@ -7,11 +7,13 @@ import com.example.huber_riedler_kovacevic_202223_snake.model.Snake;
 import com.example.huber_riedler_kovacevic_202223_snake.model.SnakeGame;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -22,7 +24,7 @@ public class PlayfieldController {
     public SnakeGame snakeGame;
     public Label lengthLabel;
     public Button goButton;
-    public BorderPane borderPane;
+    @FXML public HBox hBox;
     public Circle[][] circles;
     public boolean gameRunning = true;
     public boolean foodSpawned = true;
@@ -36,23 +38,36 @@ public class PlayfieldController {
         Thread.sleep(1000);
         lengthLabel.setText("");
         GridPane gridPane = buildPlayfield();
-        borderPane.setBottom(gridPane);
+        hBox.getChildren().add(gridPane);
     }
 
     public void goButtonClick(ActionEvent actionEvent) throws InterruptedException {
       //  goButton.setVisible(false);
        // goButton.setDisable(true);
+        goButton.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
+            if ((key.getCode() ==KeyCode.W || key.getCode() == KeyCode.UP) && snake.getDirection() != Snake.DOWN){
+                snake.setDirection(Snake.UP);
+            } else if ((key.getCode() ==KeyCode.D || key.getCode() == KeyCode.RIGHT) && snake.getDirection() != Snake.LEFT){
+                snake.setDirection(Snake.RIGHT);
+            }
+             else if ((key.getCode() ==KeyCode.S || key.getCode() == KeyCode.DOWN) && snake.getDirection() != Snake.UP){
+                snake.setDirection(Snake.DOWN);
+            }
+             else if ((key.getCode() ==KeyCode.A || key.getCode() == KeyCode.LEFT) && snake.getDirection() != Snake.RIGHT){
+                snake.setDirection(Snake.LEFT);
+            }
+
+        });
         play();
     }
 
     public void play() throws InterruptedException {
+
         playfield = new Playfield(Playfield.COLS, Playfield.ROWS);
         snake = new Snake();
         foodPosition = generateFood();
         AnimationTimerClass animationTimerClass = new AnimationTimerClass();
         animationTimerClass.start();
-
-
 
     }
 
@@ -99,6 +114,10 @@ public class PlayfieldController {
         } else if (Objects.equals(value.toString(), "Amateur")) {
             difficulty = 175;
         }
+        else if (Objects.equals(value.toString(), "Noob")) {
+            difficulty = 210;
+        }
+
     }
 
     class AnimationTimerClass extends AnimationTimer {
