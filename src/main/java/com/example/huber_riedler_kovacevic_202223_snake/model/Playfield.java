@@ -1,8 +1,8 @@
 package com.example.huber_riedler_kovacevic_202223_snake.model;
 
 public class Playfield {
-    public static final int COLS = 50;
-    public static final int ROWS = 25;
+    public static final int COLS = 45;
+    public static final int ROWS = 35;
     public static final int EMPTY = 0;
     public static final int SNAKE = 1;
     public static final int FOOD = 2;
