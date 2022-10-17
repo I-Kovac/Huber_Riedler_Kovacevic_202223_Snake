@@ -4,6 +4,7 @@ package com.example.huber_riedler_kovacevic_202223_snake.controller;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Playfield;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Position;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Snake;
+import com.example.huber_riedler_kovacevic_202223_snake.model.SnakeGame;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -14,7 +15,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.Objects;
+
 public class PlayfieldController {
+    protected int difficulty;
     public SnakeGame snakeGame;
     public Label lengthLabel;
     public Button goButton;
@@ -87,6 +91,14 @@ public class PlayfieldController {
 
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
+    }
+
+    public void setDifficulty(Object value) {
+        if (Objects.equals(value.toString(), "Pro")) {
+            difficulty = 100;
+        } else if (Objects.equals(value.toString(), "Amateur")) {
+            difficulty = 175;
+        }
     }
 
     class AnimationTimerClass extends AnimationTimer {
