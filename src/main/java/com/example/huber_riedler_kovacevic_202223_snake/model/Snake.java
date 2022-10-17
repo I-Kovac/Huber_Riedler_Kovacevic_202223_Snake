@@ -40,19 +40,27 @@ public class Snake {
         return direction;
     }
 
-    public void changeDirection(String directionString){
+    public synchronized void changeDirection(String directionString){
         switch (directionString) {
             case "W":
+                if (direction!=DOWN && direction!=UP){
                 direction = UP;
+                }
                 break;
             case "D":
-                direction = RIGHT;
+                if (direction != LEFT && direction!=RIGHT) {
+                    direction = RIGHT;
+                }
                 break;
             case "S":
-                direction = DOWN;
+                if (direction!=UP && direction!=DOWN) {
+                    direction = DOWN;
+                }
                 break;
             case "A":
-                direction = LEFT;
+                if (direction!=RIGHT && direction!=LEFT) {
+                    direction = LEFT;
+                }
                 break;
         }
     }
@@ -60,13 +68,13 @@ public class Snake {
     public void move(){
         if (direction == UP){
             lastPositions.add(new Position(currentPosition.getCol(), currentPosition.getRow()));
-            currentPosition.setRow(currentPosition.getRow()+1);
+            currentPosition.setRow(currentPosition.getRow()-1);
         } else if(direction == RIGHT){
             lastPositions.add(new Position(currentPosition.getCol(), currentPosition.getRow()));
             currentPosition.setCol(currentPosition.getCol()+1);
         }else if(direction == DOWN){
             lastPositions.add(new Position(currentPosition.getCol(), currentPosition.getRow()));
-            currentPosition.setRow(currentPosition.getRow()-1);
+            currentPosition.setRow(currentPosition.getRow()+1);
         }else if(direction == LEFT){
             lastPositions.add(new Position(currentPosition.getCol(), currentPosition.getRow()));
             currentPosition.setCol(currentPosition.getCol()-1);

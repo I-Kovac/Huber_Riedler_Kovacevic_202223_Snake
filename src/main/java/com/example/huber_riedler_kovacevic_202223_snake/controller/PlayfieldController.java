@@ -6,13 +6,17 @@ import com.example.huber_riedler_kovacevic_202223_snake.model.Position;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Snake;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.security.Key;
 
 public class PlayfieldController {
 
@@ -33,11 +37,12 @@ public class PlayfieldController {
         lengthLabel.setText("");
         GridPane gridPane = buildPlayfield();
         borderPane.setBottom(gridPane);
+
     }
 
     public void goButtonClick(ActionEvent actionEvent) throws InterruptedException {
-      //  goButton.setVisible(false);
-       // goButton.setDisable(true);
+        //  goButton.setVisible(false);
+        // goButton.setDisable(true);
         play();
     }
 
@@ -46,8 +51,18 @@ public class PlayfieldController {
         snake = new Snake();
         foodPosition = generateFood();
         AnimationTimerClass animationTimerClass = new AnimationTimerClass();
+        goButton.setOnKeyPressed(new EventHandler<javafx.scene.input.KeyEvent>() {
+            @Override
+            public void handle(javafx.scene.input.KeyEvent keyEvent) {
+                switch (keyEvent.getCode()) {
+                    case UP:    snake.changeDirection("W"); break;
+                    case DOWN:  snake.changeDirection("S"); break;
+                    case LEFT:  snake.changeDirection("A"); break;
+                    case RIGHT: snake.changeDirection("D"); break;
+                }
+            }
+        });
         animationTimerClass.start();
-
 
 
     }
@@ -82,7 +97,7 @@ public class PlayfieldController {
     }
 
     public Position generateFood() {
-        return new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS-1));
+        return new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS - 1));
     }
 
     public int getRandomNumber(int min, int max) {
@@ -95,7 +110,7 @@ public class PlayfieldController {
 
         @Override
         public void handle(long l) {
-            if (l - lastupdate >= 12_000_000 && gameRunning){
+            if (l - lastupdate >= 12_000_000 && gameRunning) {
                 playfield.setPosition(snake.getCurrentPosition().getCol(), snake.getCurrentPosition().getRow(), Playfield.SNAKE);
                 for (int i = 0; i < snake.getLastPositions().size(); i++) {
                     playfield.setPosition(snake.getLastPositions().get(i).getCol(), snake.getLastPositions().get(i).getRow(), Playfield.SNAKE);
@@ -123,13 +138,16 @@ public class PlayfieldController {
                         snake.getCurrentPosition().getCol() >= Playfield.COLS || snake.getCurrentPosition().getCol() < 0) {
                     gameRunning = false;
                 }
-                try {
-                    Thread.sleep(150);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
+                    try {
+                        Thread.sleep(240);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
             }
             lastupdate = l;
         }
     }
+
 }
