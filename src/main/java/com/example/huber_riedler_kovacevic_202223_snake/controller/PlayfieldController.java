@@ -10,12 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 import java.util.Objects;
 
@@ -24,17 +23,22 @@ public class PlayfieldController {
     public SnakeGame snakeGame;
     public Label lengthLabel;
     public Button goButton;
-    @FXML public HBox hBox;
-    public Circle[][] circles;
+    @FXML
+    public HBox hBox;
+    public Rectangle[][] rectangles;
     public boolean gameRunning = true;
     public boolean foodSpawned = true;
     private Playfield playfield;
     private Position foodPosition;
     private Snake snake;
 
+    public static final int PRO = 20;
+    public static final int AMATEUR = 50;
+    public static final int NOOB = 80;
+
 
     public void initialize() throws InterruptedException {
-        snakeGame = new SnakeGame(new Playfield(Playfield.COLS,Playfield.ROWS),new Snake());
+        snakeGame = new SnakeGame(new Playfield(Playfield.COLS, Playfield.ROWS), new Snake());
         Thread.sleep(1000);
         lengthLabel.setText("");
         GridPane gridPane = buildPlayfield();
@@ -42,21 +46,21 @@ public class PlayfieldController {
     }
 
     public void goButtonClick(ActionEvent actionEvent) throws InterruptedException {
-      //  goButton.setVisible(false);
-       // goButton.setDisable(true);
+        //  goButton.setVisible(false);
+        // goButton.setDisable(true);
         goButton.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-            if ((key.getCode() ==KeyCode.W || key.getCode() == KeyCode.UP) && snake.getDirection() != Snake.DOWN){
-                snake.setDirection(Snake.UP);
-            } else if ((key.getCode() ==KeyCode.D || key.getCode() == KeyCode.RIGHT) && snake.getDirection() != Snake.LEFT){
-                snake.setDirection(Snake.RIGHT);
+            if (snake.isHasMoved()) {
+                if ((key.getCode() == KeyCode.W || key.getCode() == KeyCode.UP) && snake.getDirection() != Snake.DOWN) {
+                    snake.changeDirection("W");
+                } else if ((key.getCode() == KeyCode.D || key.getCode() == KeyCode.RIGHT) && snake.getDirection() != Snake.LEFT) {
+                    snake.changeDirection("D");
+                } else if ((key.getCode() == KeyCode.S || key.getCode() == KeyCode.DOWN) && snake.getDirection() != Snake.UP) {
+                    snake.changeDirection("S");
+                } else if ((key.getCode() == KeyCode.A || key.getCode() == KeyCode.LEFT) && snake.getDirection() != Snake.RIGHT) {
+                    snake.changeDirection("A");
+                }
+                snake.setHasMoved(false);
             }
-             else if ((key.getCode() ==KeyCode.S || key.getCode() == KeyCode.DOWN) && snake.getDirection() != Snake.UP){
-                snake.setDirection(Snake.DOWN);
-            }
-             else if ((key.getCode() ==KeyCode.A || key.getCode() == KeyCode.LEFT) && snake.getDirection() != Snake.RIGHT){
-                snake.setDirection(Snake.LEFT);
-            }
-
         });
         play();
     }
@@ -72,13 +76,13 @@ public class PlayfieldController {
     }
 
     public GridPane buildPlayfield() {
-        circles = new Circle[Playfield.COLS][Playfield.ROWS];
+        rectangles = new Rectangle[Playfield.COLS][Playfield.ROWS];
 
         GridPane gridPane = new GridPane();
         for (int i = 0; i < Playfield.COLS; i++) {
             for (int j = 0; j < Playfield.ROWS; j++) {
-                circles[i][j] = new Circle(10, Color.GREEN);
-                gridPane.add(circles[i][j], i, j);
+                rectangles[i][j] = new Rectangle(18, 18, Color.GREEN);
+                gridPane.add(rectangles[i][j], i, j);
             }
         }
 
@@ -90,18 +94,18 @@ public class PlayfieldController {
         for (int i = 0; i < Playfield.COLS; i++) {
             for (int j = 0; j < Playfield.ROWS; j++) {
                 if (playfield[i][j] == Playfield.EMPTY) {
-                    circles[i][j].setFill(Color.GREEN);
+                    rectangles[i][j].setFill(Color.GREEN);
                 } else if (playfield[i][j] == Playfield.FOOD) {
-                    circles[i][j].setFill(Color.RED);
+                    rectangles[i][j].setFill(Color.RED);
                 } else if (playfield[i][j] == Playfield.SNAKE) {
-                    circles[i][j].setFill(Color.LIGHTBLUE);
+                    rectangles[i][j].setFill(Color.BLACK);
                 }
             }
         }
     }
 
     public Position generateFood() {
-        return new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS-1));
+        return new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS - 1));
     }
 
     public int getRandomNumber(int min, int max) {
@@ -110,12 +114,11 @@ public class PlayfieldController {
 
     public void setDifficulty(Object value) {
         if (Objects.equals(value.toString(), "Pro")) {
-            difficulty = 100;
+            difficulty = PRO;
         } else if (Objects.equals(value.toString(), "Amateur")) {
-            difficulty = 175;
-        }
-        else if (Objects.equals(value.toString(), "Noob")) {
-            difficulty = 210;
+            difficulty = AMATEUR;
+        } else if (Objects.equals(value.toString(), "Noob")) {
+            difficulty = NOOB;
         }
 
     }
@@ -126,7 +129,7 @@ public class PlayfieldController {
 
         @Override
         public void handle(long l) {
-            if (l - lastupdate >= 12_000_000 && gameRunning){
+            if (l - lastupdate >= 12_000_000 && gameRunning) {
                 playfield.setPosition(snake.getCurrentPosition().getCol(), snake.getCurrentPosition().getRow(), Playfield.SNAKE);
                 for (int i = 0; i < snake.getLastPositions().size(); i++) {
                     playfield.setPosition(snake.getLastPositions().get(i).getCol(), snake.getLastPositions().get(i).getRow(), Playfield.SNAKE);
@@ -164,6 +167,7 @@ public class PlayfieldController {
             lastupdate = l;
         }
     }
+
     public void setLengthLabel(int lengthLabel) {
         this.lengthLabel.setText(String.valueOf(lengthLabel));
     }

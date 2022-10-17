@@ -12,11 +12,13 @@ public class Snake {
     private int direction;
     private Position currentPosition;
     private ArrayList<Position> lastPositions = new ArrayList<>();
+    private boolean hasMoved;
 
     public Snake() {
     length = 2;
     direction = RIGHT;
     currentPosition = new Position(0, 0);
+    hasMoved = false;
     }
 
     public int getLength() {
@@ -86,6 +88,15 @@ public class Snake {
         if (lastPositions.size() == length){
             lastPositions.remove(0);
         }
+        hasMoved = true;
 
+    }
+
+    public boolean isHasMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
     }
 }
