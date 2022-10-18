@@ -1,16 +1,21 @@
 package com.example.huber_riedler_kovacevic_202223_snake.controller;
 
 import com.example.huber_riedler_kovacevic_202223_snake.HelloApplication;
+import com.example.huber_riedler_kovacevic_202223_snake.model.Game;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Menu;
+import com.example.huber_riedler_kovacevic_202223_snake.model.Playfield;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -27,6 +32,9 @@ public class HelloController {
     public Menu menu;
     public Slider volume;
     public ToggleButton onoff;
+    public BorderPane borderPain;
+    @FXML
+    public static Label labelHighscore;
 
     public void initialize() {
 
@@ -40,7 +48,9 @@ public class HelloController {
 
         menu.volumeslider(volume);
 
-
+        labelHighscore=new Label();
+        labelHighscore.setText("Highscore:"+ Game.highscore);
+        borderPain.setLeft(labelHighscore);
     }
 
     public void playButtonClick() throws IOException {
@@ -58,6 +68,7 @@ public class HelloController {
         stage.setTitle("Game");
         stage.setScene(scene);
         stage.show();
+
     }
 
     public void music_button(MouseEvent mouseEvent) {

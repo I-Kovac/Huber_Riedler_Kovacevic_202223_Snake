@@ -20,7 +20,7 @@ public class Snake {
     public Snake() {
     length = 2;
     direction = RIGHT;
-    currentPosition = new Position(0, 0);
+    currentPosition = new Position(1, 1);
     hasMoved = false;
     }
 

@@ -40,7 +40,7 @@ public class Playfield {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < Playfield.COLS; i++) {
             for (int j = 0; j < Playfield.ROWS; j++) {
-                rectangles[i][j] = new Rectangle(18, 18, Color.GREEN);
+                rectangles[i][j] = new Rectangle(18, 18, BACKGROUNDCOLOR);
                 gridPane.add(rectangles[i][j], i, j);
             }
         }
@@ -52,7 +52,13 @@ public class Playfield {
         for (int i = 0; i < Playfield.COLS; i++) {
             for (int j = 0; j < Playfield.ROWS; j++) {
                 if (playfield[i][j] == Playfield.EMPTY) {
-                    rectangles[i][j].setFill(BACKGROUNDCOLOR);
+                    if (i==Playfield.COLS-1 || i==0){
+                        rectangles[i][j].setFill(Color.DARKOLIVEGREEN);
+                    } else if (j==Playfield.ROWS-1 || j==0){
+                        rectangles[i][j].setFill(Color.DARKOLIVEGREEN);
+                    } else {
+                        rectangles[i][j].setFill(BACKGROUNDCOLOR);
+                    }
                 } else if (playfield[i][j] == Playfield.FOOD) {
                     rectangles[i][j].setFill(FOODCOLOR);
                 } else if (playfield[i][j] == Playfield.SNAKE) {
@@ -124,12 +130,12 @@ public class Playfield {
 
     public void setFoodposition() {
 
-        int col = getRandomNumber(0, Playfield.COLS - 1);
-        int row = getRandomNumber(0, Playfield.ROWS - 1);
+        int col = getRandomNumber(0, Playfield.COLS - 2);
+        int row = getRandomNumber(0, Playfield.ROWS - 2);
 
         while (getPlayfield()[col][row] == SNAKE) {
-            col = getRandomNumber(0, Playfield.COLS - 1);
-            row = getRandomNumber(0, Playfield.ROWS - 1);
+            col = getRandomNumber(0, Playfield.COLS - 2);
+            row = getRandomNumber(0, Playfield.ROWS - 2);
         }
         foodPosition = new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS - 1));
     }

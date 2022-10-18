@@ -16,7 +16,7 @@
 
 <AnchorPane fx:id="background" prefHeight="421.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.HelloController">
    <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="765.0">
+      <BorderPane fx:id="borderPain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="765.0">
          <top>
             <Label alignment="CENTER" prefHeight="66.0" prefWidth="571.0" text="Welcome To Snek" textAlignment="CENTER" BorderPane.alignment="CENTER">
                <font>
@@ -63,13 +63,6 @@
                </image>
             </ImageView>
          </center>
-         <left>
-            <Label fx:id="labelHighscore" prefHeight="23.0" prefWidth="102.0" text="Highscore:35" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets left="20.0" />
-               </BorderPane.margin>
-            </Label>
-         </left>
       </BorderPane>
    </children>
 </AnchorPane>

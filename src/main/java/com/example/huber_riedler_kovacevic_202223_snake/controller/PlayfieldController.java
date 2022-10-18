@@ -98,8 +98,8 @@ public class PlayfieldController {
                     game.playfield.snake.move();
                 }
 
-                if (game.playfield.snake.getCurrentPosition().getRow() >= Playfield.ROWS || game.playfield.snake.getCurrentPosition().getRow() < 0 ||
-                        game.playfield.snake.getCurrentPosition().getCol() >= Playfield.COLS || game.playfield.snake.getCurrentPosition().getCol() < 0) {
+                if (game.playfield.snake.getCurrentPosition().getRow() == Playfield.ROWS-1 || game.playfield.snake.getCurrentPosition().getRow() == 0 ||
+                        game.playfield.snake.getCurrentPosition().getCol() == Playfield.COLS-1 || game.playfield.snake.getCurrentPosition().getCol() == 0) {
                     gameRunning = false;
                 }
                 setLengthLabel(game.playfield.snake.getLength());
@@ -111,12 +111,13 @@ public class PlayfieldController {
             } else if (!gameRunning) {
                 Game.highscore = game.playfield.snake.getLength();
                 animationTimerClass.stop();
-
+                HelloController.labelHighscore.setText("Highscore"+Game.highscore);
                     Stage stage = (Stage) goButton.getScene().getWindow();
                     // do what you have to do
                     stage.close();
                     if (music) {
                         game.stopmusic();
+
                     }
 
 
