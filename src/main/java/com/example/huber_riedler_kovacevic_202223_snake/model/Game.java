@@ -8,14 +8,16 @@ import java.io.File;
 
 public class Game {
     public Playfield playfield;
+    public static int highscore;
     MediaPlayer mediaPlayer;
 
     public Game(Playfield playfield) {
         this.playfield = playfield;
-            }
+        highscore = 0;
+    }
 
 
-    public void playMusic(String value,double volume){
+    public void playMusic(String value, double volume) {
         Media media = new Media(new File("music\\" + value).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
@@ -24,6 +26,6 @@ public class Game {
     }
 
     public void stopmusic() {
-        mediaPlayer.stop();
+            mediaPlayer.stop();
     }
 }

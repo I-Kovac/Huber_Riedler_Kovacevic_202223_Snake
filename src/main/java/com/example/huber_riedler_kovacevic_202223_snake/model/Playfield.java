@@ -7,9 +7,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 public class Playfield {
-    public static final Paint SNAKECOLOR= Color.BLACK;
-    public static final Paint BACKGROUNDCOLOR= Color.GREEN;
-    public static final Paint FOODCOLOR= Color.RED;
+    public static final Paint SNAKECOLOR = Color.BLACK;
+    public static final Paint BACKGROUNDCOLOR = Color.GREEN;
+    public static final Paint FOODCOLOR = Color.RED;
     public static final int COLS = 45;
     public static final int ROWS = 35;
     public static final int EMPTY = 0;
@@ -19,11 +19,11 @@ public class Playfield {
     public Position foodPosition;
     public boolean foodSpawned;
     Rectangle[][] rectangles;
-//
+    //
     private int playfield[][];
 
     public Playfield(int cols, int rows, Snake snake) {
-        this.snake= snake;
+        this.snake = snake;
         playfield = new int[cols][rows];
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
@@ -40,7 +40,7 @@ public class Playfield {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < Playfield.COLS; i++) {
             for (int j = 0; j < Playfield.ROWS; j++) {
-                rectangles[i][j] = new Rectangle(18,18, Color.GREEN);
+                rectangles[i][j] = new Rectangle(18, 18, Color.GREEN);
                 gridPane.add(rectangles[i][j], i, j);
             }
         }
@@ -70,7 +70,7 @@ public class Playfield {
         return playfield;
     }
 
-    public boolean checkForSnake(){
+    public boolean checkForSnake() {
         boolean ret = false;
 
         try {
@@ -91,7 +91,8 @@ public class Playfield {
                     ret = true;
                 }
             }
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
         return ret;
     }
 
@@ -116,12 +117,21 @@ public class Playfield {
                     ret = true;
                 }
             }
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
         return ret;
     }
 
     public void setFoodposition() {
-        foodPosition= new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS - 1));
+
+        int col = getRandomNumber(0, Playfield.COLS - 1);
+        int row = getRandomNumber(0, Playfield.ROWS - 1);
+
+        while (getPlayfield()[col][row] == SNAKE) {
+            col = getRandomNumber(0, Playfield.COLS - 1);
+            row = getRandomNumber(0, Playfield.ROWS - 1);
+        }
+        foodPosition = new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS - 1));
     }
 
     public void setSnakeState(int i) {
@@ -133,10 +143,10 @@ public class Playfield {
     }
 
     public void setEmptyState() {
-        playfield[snake.getLastPositions().get(0).getCol()][snake.getLastPositions().get(0).getRow()]=EMPTY;
+        playfield[snake.getLastPositions().get(0).getCol()][snake.getLastPositions().get(0).getRow()] = EMPTY;
     }
 
     public void setSnakefirstState() {
-        playfield[snake.getCurrentPosition().getCol()][snake.getCurrentPosition().getRow()]=SNAKE;
+        playfield[snake.getCurrentPosition().getCol()][snake.getCurrentPosition().getRow()] = SNAKE;
     }
 }

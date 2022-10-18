@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="background" prefHeight="396.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.PlayfieldController">
+<AnchorPane fx:id="background" prefHeight="396.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.PlayfieldController">
    <children>
       <VBox prefHeight="396.0" prefWidth="623.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -18,7 +17,7 @@
                      <children>
                         <HBox alignment="BASELINE_CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label text="SCORE:">
+                              <Label fx:id="scoreLabel" text="SCORE:">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

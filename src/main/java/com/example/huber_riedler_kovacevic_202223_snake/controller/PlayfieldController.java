@@ -20,12 +20,14 @@ public class PlayfieldController {
     public Button goButton;
     public boolean gameRunning = true;
     public int difficulty;
+    public Label scoreLabel;
     AnimationTimerClass animationTimerClass;
     public HBox hBox;
+    private boolean music = false;
 
 
     public void initialize() throws InterruptedException {
-        game = new Game(new Playfield(Playfield.COLS,Playfield.ROWS,new Snake()));
+        game = new Game(new Playfield(Playfield.COLS, Playfield.ROWS, new Snake()));
         lengthLabel.setText("");
         GridPane gridPane = game.playfield.buildPlayfield();
         hBox.getChildren().add(gridPane);
@@ -42,11 +44,13 @@ public class PlayfieldController {
                     game.playfield.snake.changeDirection("S");
                 } else if ((key.getCode() == KeyCode.A || key.getCode() == KeyCode.LEFT) && game.playfield.snake.getDirection() != Snake.RIGHT) {
                     game.playfield.snake.changeDirection("A");
-                } else if(key.getCode() == KeyCode.ESCAPE){
+                } else if (key.getCode() == KeyCode.ESCAPE) {
                     Stage stage = (Stage) goButton.getScene().getWindow();
                     // do what you have to do
                     stage.close();
-                    game.stopmusic();
+                    if (music) {
+                        game.stopmusic();
+                    }
                 }
                 game.playfield.snake.setHasMoved(false);
             }
@@ -73,20 +77,20 @@ public class PlayfieldController {
                 }
                 if (!game.playfield.foodSpawned) {
                     game.playfield.setFoodposition();
-                    game.playfield.foodSpawned=true;
+                    game.playfield.foodSpawned = true;
                 }
 
                 game.playfield.setFoodState();
 
                 game.playfield.updatePlayfield();
 
-                if (game.playfield.checkForSnake()){
+                if (game.playfield.checkForSnake()) {
                     gameRunning = false;
                 }
 
                 if (game.playfield.checkForFood() && gameRunning) {
                     game.playfield.snake.eat();
-                    game.playfield.foodSpawned=false;
+                    game.playfield.foodSpawned = false;
                 } else {
                     if (game.playfield.snake.getLastPositions().size() > 0 && gameRunning) {
                         game.playfield.setEmptyState();
@@ -104,21 +108,36 @@ public class PlayfieldController {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            } else if (!gameRunning) {
+                Game.highscore = game.playfield.snake.getLength();
+                animationTimerClass.stop();
+
+                    Stage stage = (Stage) goButton.getScene().getWindow();
+                    // do what you have to do
+                    stage.close();
+                    if (music) {
+                        game.stopmusic();
+                    }
+
+
+
+
             }
             lastupdate = l;
         }
     }
 
     public void setDifficulty(Object value) {
-        difficulty= (int) value;
+        difficulty = (int) value;
     }
 
     public void setLengthLabel(int lengthLabel) {
         this.lengthLabel.setText(String.valueOf(lengthLabel));
     }
 
-    public void playMusic(String value,double volume,boolean play) {
-        if(play) {
+    public void playMusic(String value, double volume, boolean play) {
+        if (play) {
+            music = true;
             game.playMusic(value, volume);
         }
     }
