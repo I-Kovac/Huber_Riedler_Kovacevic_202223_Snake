@@ -90,8 +90,10 @@ public class PlayfieldController {
         this.lengthLabel.setText(String.valueOf(lengthLabel));
     }
 
-    public void playMusic(String value,double volume) {
-        game.playMusic(value,volume);
+    public void playMusic(String value,double volume,boolean play) {
+        if(play) {
+            game.playMusic(value, volume);
+        }
     }
 
 }

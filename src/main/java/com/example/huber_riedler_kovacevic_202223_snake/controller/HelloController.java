@@ -51,7 +51,7 @@ public class HelloController {
         Scene scene = new Scene(fxmlLoader.load());
         PlayfieldController controller = fxmlLoader.<PlayfieldController>getController();
         controller.setDifficulty(menu.getdifficulty(difficulty));
-        controller.playMusic(music.getValue().toString(),menu.mediaPlayer.getVolume());
+        controller.playMusic(music.getValue().toString(),menu.mediaPlayer.getVolume(),menu.getMusicStatus(onoff));
         Stage stage = new Stage();
         stage.setTitle("Game");
         stage.setScene(scene);

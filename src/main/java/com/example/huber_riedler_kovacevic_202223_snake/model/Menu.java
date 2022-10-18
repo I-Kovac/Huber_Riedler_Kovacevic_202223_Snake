@@ -2,6 +2,7 @@ package com.example.huber_riedler_kovacevic_202223_snake.model;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
@@ -35,6 +36,7 @@ public class Menu {
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }
 
     public ComboBox addDifficulties(ComboBox comboBox) {
@@ -77,5 +79,13 @@ public class Menu {
             difficulty = 175;
         }
         return difficulty;
+    }
+
+    public Boolean getMusicStatus(ToggleButton b) {
+        boolean play=false;
+        if (Objects.equals(b.getText(), "ON")) {
+            play=true;
+        }
+        return play;
     }
 }

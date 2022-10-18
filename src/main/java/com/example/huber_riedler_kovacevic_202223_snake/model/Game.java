@@ -19,6 +19,7 @@ public class Game {
         Media media = new Media(new File("music\\" + value).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(volume);
     }
 }
