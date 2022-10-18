@@ -2,14 +2,15 @@
 package com.example.huber_riedler_kovacevic_202223_snake.controller;
 
 import com.example.huber_riedler_kovacevic_202223_snake.model.Playfield;
-import com.example.huber_riedler_kovacevic_202223_snake.model.Position;
 import com.example.huber_riedler_kovacevic_202223_snake.model.Snake;
-import com.example.huber_riedler_kovacevic_202223_snake.model.SnakeGame;
+import com.example.huber_riedler_kovacevic_202223_snake.model.Game;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -19,60 +20,30 @@ import javafx.scene.shape.Rectangle;
 import java.util.Objects;
 
 public class PlayfieldController {
-    protected int difficulty;
-    public SnakeGame snakeGame;
+    public Game game;
     public Label lengthLabel;
     public Button goButton;
-    @FXML
-    public HBox hBox;
-    public Rectangle[][] rectangles;
+    public BorderPane borderPane;
     public boolean gameRunning = true;
     public boolean foodSpawned = true;
-    private Playfield playfield;
-    private Position foodPosition;
-    private Snake snake;
-
-    public static final int PRO = 20;
-    public static final int AMATEUR = 50;
-    public static final int NOOB = 80;
+    public int difficulty = 250;
 
 
     public void initialize() throws InterruptedException {
-        snakeGame = new SnakeGame(new Playfield(Playfield.COLS, Playfield.ROWS), new Snake());
-        Thread.sleep(1000);
+        game = new Game(new Playfield(Playfield.COLS,Playfield.ROWS,new Snake()));
         lengthLabel.setText("");
-        GridPane gridPane = buildPlayfield();
-        hBox.getChildren().add(gridPane);
+        GridPane gridPane = game.playfield.buildPlayfield();
+        borderPane.setBottom(gridPane);
     }
 
-    public void goButtonClick(ActionEvent actionEvent) throws InterruptedException {
-        //  goButton.setVisible(false);
-        // goButton.setDisable(true);
-        goButton.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-            if (snake.isHasMoved()) {
-                if ((key.getCode() == KeyCode.W || key.getCode() == KeyCode.UP) && snake.getDirection() != Snake.DOWN) {
-                    snake.changeDirection("W");
-                } else if ((key.getCode() == KeyCode.D || key.getCode() == KeyCode.RIGHT) && snake.getDirection() != Snake.LEFT) {
-                    snake.changeDirection("D");
-                } else if ((key.getCode() == KeyCode.S || key.getCode() == KeyCode.DOWN) && snake.getDirection() != Snake.UP) {
-                    snake.changeDirection("S");
-                } else if ((key.getCode() == KeyCode.A || key.getCode() == KeyCode.LEFT) && snake.getDirection() != Snake.RIGHT) {
-                    snake.changeDirection("A");
-                }
-                snake.setHasMoved(false);
-            }
-        });
+    public void goButtonClick() throws InterruptedException {
         play();
     }
 
     public void play() throws InterruptedException {
-
-        playfield = new Playfield(Playfield.COLS, Playfield.ROWS);
-        snake = new Snake();
-        foodPosition = generateFood();
+        game.playfield.setFoodposition();
         AnimationTimerClass animationTimerClass = new AnimationTimerClass();
         animationTimerClass.start();
-
     }
 
     public GridPane buildPlayfield() {
@@ -130,34 +101,34 @@ public class PlayfieldController {
         @Override
         public void handle(long l) {
             if (l - lastupdate >= 12_000_000 && gameRunning) {
-                playfield.setPosition(snake.getCurrentPosition().getCol(), snake.getCurrentPosition().getRow(), Playfield.SNAKE);
-                for (int i = 0; i < snake.getLastPositions().size(); i++) {
-                    playfield.setPosition(snake.getLastPositions().get(i).getCol(), snake.getLastPositions().get(i).getRow(), Playfield.SNAKE);
+                game.playfield.setSnakefirstState();
+                for (int i = 0; i < game.playfield.snake.getLastPositions().size(); i++) {
+                    game.playfield.setSnakeState(i);
                 }
                 if (!foodSpawned) {
-                    foodPosition = generateFood();
-                    foodSpawned = true;
+                    game.playfield.setFoodposition();
+                    game.playfield.foodSpawned=true;
                 }
 
-                playfield.setPosition(foodPosition.getCol(), foodPosition.getRow(), Playfield.FOOD);
+                game.playfield.setFoodState();
 
-                updatePlayfield(playfield.getPlayfield());
+                game.playfield.updatePlayfield();
 
-                if (playfield.checkForFood(snake.getDirection(), snake.getCurrentPosition())) {
-                    snake.eat();
-                    foodSpawned = false;
+                if (game.playfield.checkForFood()) {
+                    game.playfield.snake.eat();
+                    game.playfield.foodSpawned=true;
                 } else {
-                    if (snake.getLastPositions().size() > 0) {
-                        playfield.setPosition(snake.getLastPositions().get(0).getCol(), snake.getLastPositions().get(0).getRow(), Playfield.EMPTY);
+                    if (game.playfield.snake.getLastPositions().size() > 0) {
+                        game.playfield.setEmptyState();
                     }
-                    snake.move();
+                    game.playfield.snake.move();
                 }
 
-                if (snake.getCurrentPosition().getRow() >= Playfield.ROWS || snake.getCurrentPosition().getRow() < 0 ||
-                        snake.getCurrentPosition().getCol() >= Playfield.COLS || snake.getCurrentPosition().getCol() < 0) {
+                if (game.playfield.snake.getCurrentPosition().getRow() >= Playfield.ROWS || game.playfield.snake.getCurrentPosition().getRow() < 0 ||
+                        game.playfield.snake.getCurrentPosition().getCol() >= Playfield.COLS || game.playfield.snake.getCurrentPosition().getCol() < 0) {
                     gameRunning = false;
                 }
-                setLengthLabel(snake.getLength());
+                setLengthLabel(game.playfield.snake.getLength());
                 try {
                     Thread.sleep(difficulty);
                 } catch (InterruptedException e) {
@@ -168,12 +139,18 @@ public class PlayfieldController {
         }
     }
 
+    public void setDifficulty(Object value) {
+        difficulty= (int) value;
+    }
+
     public void setLengthLabel(int lengthLabel) {
         this.lengthLabel.setText(String.valueOf(lengthLabel));
     }
 
-    public void playMusic(String value) {
-        snakeGame.playMusic(value);
+    public void playMusic(String value,double volume,boolean play) {
+        if(play) {
+            game.playMusic(value, volume);
+        }
     }
 
 }
