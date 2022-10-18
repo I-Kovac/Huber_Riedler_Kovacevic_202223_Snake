@@ -1,5 +1,8 @@
 package com.example.huber_riedler_kovacevic_202223_snake.model;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
 import java.util.ArrayList;
 
 public class Snake {

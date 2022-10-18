@@ -2,9 +2,14 @@ package com.example.huber_riedler_kovacevic_202223_snake.model;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 public class Playfield {
+    public static final Paint SNAKECOLOR= Color.BLACK;
+    public static final Paint BACKGROUNDCOLOR= Color.GREEN;
+    public static final Paint FOODCOLOR= Color.RED;
     public static final int COLS = 45;
     public static final int ROWS = 35;
     public static final int EMPTY = 0;
@@ -13,7 +18,7 @@ public class Playfield {
     public Snake snake;
     public Position foodPosition;
     public boolean foodSpawned;
-    Circle[][] circles;
+    Rectangle[][] rectangles;
 
     private int playfield[][];
 
@@ -30,13 +35,13 @@ public class Playfield {
     public GridPane buildPlayfield() {
 
 
-        circles = new Circle[Playfield.COLS][Playfield.ROWS];
+        rectangles = new Rectangle[Playfield.COLS][Playfield.ROWS];
 
         GridPane gridPane = new GridPane();
         for (int i = 0; i < Playfield.COLS; i++) {
             for (int j = 0; j < Playfield.ROWS; j++) {
-                circles[i][j] = new Circle(10, Color.GREEN);
-                gridPane.add(circles[i][j], i, j);
+                rectangles[i][j] = new Rectangle(18,18, Color.GREEN);
+                gridPane.add(rectangles[i][j], i, j);
             }
         }
         return gridPane;
@@ -47,11 +52,11 @@ public class Playfield {
         for (int i = 0; i < Playfield.COLS; i++) {
             for (int j = 0; j < Playfield.ROWS; j++) {
                 if (playfield[i][j] == Playfield.EMPTY) {
-                    circles[i][j].setFill(Color.GREEN);
+                    rectangles[i][j].setFill(BACKGROUNDCOLOR);
                 } else if (playfield[i][j] == Playfield.FOOD) {
-                    circles[i][j].setFill(Color.RED);
+                    rectangles[i][j].setFill(FOODCOLOR);
                 } else if (playfield[i][j] == Playfield.SNAKE) {
-                    circles[i][j].setFill(Color.LIGHTBLUE);
+                    rectangles[i][j].setFill(SNAKECOLOR);
                 }
             }
         }
@@ -59,10 +64,6 @@ public class Playfield {
 
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
-    }
-
-    public void setPosition(int col, int row, int state) {
-
     }
 
     public int[][] getPlayfield() {

@@ -22,4 +22,8 @@ public class Game {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(volume);
     }
+
+    public void stopmusic() {
+        mediaPlayer.stop();
+    }
 }

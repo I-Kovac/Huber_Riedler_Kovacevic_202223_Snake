@@ -15,6 +15,9 @@ import java.util.Objects;
 public class Menu {
 
     public MediaPlayer mediaPlayer;
+    public static final int PRO = 20;
+    public static final int AMATEUR = 50;
+    public static final int NOOB = 80;
 
 
     public ComboBox addListofFiles(ComboBox comboBox){
@@ -72,11 +75,11 @@ public class Menu {
     }
 
     public Object getdifficulty(ComboBox comboBox) {
-        int difficulty=250;
+        int difficulty=NOOB;
         if (Objects.equals(comboBox.getValue().toString(), "Pro")) {
-            difficulty = 100;
+            difficulty = PRO;
         } else if (Objects.equals(comboBox.getValue().toString(), "Amateur")) {
-            difficulty = 175;
+            difficulty = AMATEUR;
         }
         return difficulty;
     }
