@@ -80,11 +80,15 @@ public class PlayfieldController {
 
                 game.playfield.updatePlayfield();
 
-                if (game.playfield.checkForFood()) {
+                if (game.playfield.checkForSnake()){
+                    gameRunning = false;
+                }
+
+                if (game.playfield.checkForFood() && gameRunning) {
                     game.playfield.snake.eat();
                     game.playfield.foodSpawned=false;
                 } else {
-                    if (game.playfield.snake.getLastPositions().size() > 0) {
+                    if (game.playfield.snake.getLastPositions().size() > 0 && gameRunning) {
                         game.playfield.setEmptyState();
                     }
                     game.playfield.snake.move();

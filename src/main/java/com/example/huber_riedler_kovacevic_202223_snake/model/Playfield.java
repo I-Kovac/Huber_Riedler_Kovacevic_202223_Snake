@@ -19,7 +19,7 @@ public class Playfield {
     public Position foodPosition;
     public boolean foodSpawned;
     Rectangle[][] rectangles;
-
+//
     private int playfield[][];
 
     public Playfield(int cols, int rows, Snake snake) {
@@ -70,12 +70,37 @@ public class Playfield {
         return playfield;
     }
 
+    public boolean checkForSnake(){
+        boolean ret = false;
+
+        try {
+            if (snake.getDirection() == Snake.UP) {
+                if (playfield[snake.getCurrentPosition().getCol()][snake.getCurrentPosition().getRow() - 1] == SNAKE) {
+                    ret = true;
+                }
+            } else if (snake.getDirection() == Snake.RIGHT) {
+                if (playfield[snake.getCurrentPosition().getCol() + 1][snake.getCurrentPosition().getRow()] == SNAKE) {
+                    ret = true;
+                }
+            } else if (snake.getDirection() == Snake.DOWN) {
+                if (playfield[snake.getCurrentPosition().getCol()][snake.getCurrentPosition().getRow() + 1] == SNAKE) {
+                    ret = true;
+                }
+            } else if (snake.getDirection() == Snake.LEFT) {
+                if (playfield[snake.getCurrentPosition().getCol() - 1][snake.getCurrentPosition().getRow()] == SNAKE) {
+                    ret = true;
+                }
+            }
+        } catch (Exception e){}
+        return ret;
+    }
+
     public boolean checkForFood() {
         boolean ret = false;
 
         try {
             if (snake.getDirection() == Snake.UP) {
-                if (playfield[snake.getCurrentPosition().getCol()][snake.getCurrentPosition().getRow() + 1] == FOOD) {
+                if (playfield[snake.getCurrentPosition().getCol()][snake.getCurrentPosition().getRow() - 1] == FOOD) {
                     ret = true;
                 }
             } else if (snake.getDirection() == Snake.RIGHT) {
@@ -83,7 +108,7 @@ public class Playfield {
                     ret = true;
                 }
             } else if (snake.getDirection() == Snake.DOWN) {
-                if (playfield[snake.getCurrentPosition().getCol()][snake.getCurrentPosition().getRow() - 1] == FOOD) {
+                if (playfield[snake.getCurrentPosition().getCol()][snake.getCurrentPosition().getRow() + 1] == FOOD) {
                     ret = true;
                 }
             } else if (snake.getDirection() == Snake.LEFT) {
