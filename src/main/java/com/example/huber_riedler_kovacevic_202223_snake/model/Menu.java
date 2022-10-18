@@ -27,15 +27,16 @@ public class Menu {
 
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
-                comboBox.getItems().add(listOfFiles[i].getName());
+                comboBox.getItems().add(listOfFiles[i].getName().substring(0,listOfFiles[i].getName().indexOf(".")));
+                comboBox.getItems().remove("IntroMusic");
             }
         }
-        comboBox.setValue(listOfFiles[0].getName());
+        comboBox.setValue("Geometry Dash");
         return comboBox;
     }
 
     public void playMusic(){
-        String path = "music/CFC_Geometry_Dash_Back_On_Track_.mp3";
+        String path = "music/IntroMusic.mp3";
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();

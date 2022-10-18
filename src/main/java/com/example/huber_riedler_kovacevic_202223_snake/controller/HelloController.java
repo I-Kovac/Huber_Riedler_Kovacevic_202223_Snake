@@ -39,6 +39,8 @@ public class HelloController {
         menu.playMusic();
 
         menu.volumeslider(volume);
+
+
     }
 
     public void playButtonClick() throws IOException {

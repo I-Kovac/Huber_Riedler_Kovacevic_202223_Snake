@@ -18,7 +18,7 @@ public class Game {
 
 
     public void playMusic(String value, double volume) {
-        Media media = new Media(new File("music\\" + value).toURI().toString());
+        Media media = new Media(new File("music\\" + value).toURI()+".mp3");
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
