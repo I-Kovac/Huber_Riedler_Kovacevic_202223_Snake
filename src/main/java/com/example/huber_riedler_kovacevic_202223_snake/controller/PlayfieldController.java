@@ -12,7 +12,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class PlayfieldController {
@@ -23,6 +22,7 @@ public class PlayfieldController {
     public int difficulty;
     public StackPane stackpane;
     AnimationTimerClass animationTimerClass;
+    public HBox hBox;
     private boolean music = false;
 
 
@@ -76,42 +76,46 @@ public class PlayfieldController {
         @Override
         public void handle(long l) {
             if (l - lastupdate >= 12_000_000 && gameRunning) {
-                game.playfield.setSnakefirstState();
-                for (int i = 0; i < game.playfield.snake.getLastPositions().size(); i++) {
-                    game.playfield.setSnakeState(i);
-                }
-                if (!game.playfield.foodSpawned) {
-                    game.playfield.setFoodposition();
-                    game.playfield.foodSpawned = true;
-                }
-
-                game.playfield.setFoodState();
-
-                game.playfield.updatePlayfield();
-
-                if (game.playfield.checkForSnake()) {
-                    gameRunning = false;
-                }
-
-                if (game.playfield.checkForFood() && gameRunning) {
-                    game.playfield.snake.eat();
-                    game.playfield.foodSpawned = false;
-                } else {
-                    if (game.playfield.snake.getLastPositions().size() > 0 && gameRunning) {
-                        game.playfield.setEmptyState();
+                if (!game.isPaused()) {
+                    game.playfield.setSnakefirstState();
+                    for (int i = 0; i < game.playfield.snake.getLastPositions().size(); i++) {
+                        game.playfield.setSnakeState(i);
                     }
-                    game.playfield.snake.move();
-                }
+                    if (!game.playfield.foodSpawned) {
+                        game.playfield.setFoodposition();
+                        game.playfield.foodSpawned = true;
+                    }
 
-                if (game.playfield.snake.getCurrentPosition().getRow() == Playfield.ROWS-1 || game.playfield.snake.getCurrentPosition().getRow() == 0 ||
-                        game.playfield.snake.getCurrentPosition().getCol() == Playfield.COLS-1 || game.playfield.snake.getCurrentPosition().getCol() == 0) {
-                    gameRunning = false;
-                }
-                setLengthLabel(game.playfield.snake.getLength());
-                try {
-                    Thread.sleep(difficulty);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    game.playfield.setFoodState();
+
+                    game.playfield.updatePlayfield();
+
+                    if (game.playfield.checkForSnake()) {
+                        gameRunning = false;
+                    }
+
+                    if (game.playfield.checkForFood() && gameRunning) {
+                        game.playfield.snake.eat();
+                        game.playfield.foodSpawned = false;
+                    } else {
+                        if (game.playfield.snake.getLastPositions().size() > 0 && gameRunning) {
+                            game.playfield.setEmptyState();
+                        }
+
+                        game.playfield.snake.move();
+
+                    }
+
+                    if (game.playfield.snake.getCurrentPosition().getRow() == Playfield.ROWS - 1 || game.playfield.snake.getCurrentPosition().getRow() == 0 ||
+                            game.playfield.snake.getCurrentPosition().getCol() == Playfield.COLS - 1 || game.playfield.snake.getCurrentPosition().getCol() == 0) {
+                        gameRunning = false;
+                    }
+                    setLengthLabel(game.playfield.snake.getLength());
+                    try {
+                        Thread.sleep(difficulty);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             } else if (!gameRunning) {
                 Game.highscore = game.playfield.snake.getLength();
@@ -123,13 +127,12 @@ public class PlayfieldController {
                     if (music) {
                         game.stopmusic();
 
-                    }
-
-
+                }
 
 
             }
             lastupdate = l;
+            goButton.requestFocus();
         }
     }
 

@@ -8,12 +8,14 @@ import java.io.File;
 
 public class Game {
     public Playfield playfield;
+    protected boolean paused;
     public static int highscore;
     MediaPlayer mediaPlayer;
 
     public Game(Playfield playfield) {
         this.playfield = playfield;
         highscore = 0;
+        paused = false;
     }
 
 
@@ -27,5 +29,12 @@ public class Game {
 
     public void stopmusic() {
             mediaPlayer.stop();
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 }

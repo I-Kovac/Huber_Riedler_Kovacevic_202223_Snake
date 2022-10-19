@@ -129,14 +129,14 @@ public class Playfield {
 
     public void setFoodposition() {
 
-        int col = getRandomNumber(0, Playfield.COLS - 2);
-        int row = getRandomNumber(0, Playfield.ROWS - 2);
+        int col = getRandomNumber(1, Playfield.COLS - 2);
+        int row = getRandomNumber(1, Playfield.ROWS - 2);
 
         while (getPlayfield()[col][row] == SNAKE) {
-            col = getRandomNumber(0, Playfield.COLS - 2);
-            row = getRandomNumber(0, Playfield.ROWS - 2);
+            col = getRandomNumber(1, Playfield.COLS - 2);
+            row = getRandomNumber(1, Playfield.ROWS - 2);
         }
-        foodPosition = new Position(getRandomNumber(0, Playfield.COLS - 1), getRandomNumber(0, Playfield.ROWS - 1));
+        foodPosition = new Position(col, row);
     }
 
     public void setSnakeState(int i) {
