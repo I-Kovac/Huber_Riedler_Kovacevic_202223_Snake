@@ -65,7 +65,7 @@ public class HelloController {
 
     public void openGame() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("playfield.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Scene scene = new Scene(fxmlLoader.load(),825,639);
         PlayfieldController controller = fxmlLoader.<PlayfieldController>getController();
         controller.setDifficulty(menu.getdifficulty(difficulty));
         controller.playMusic(music.getValue().toString(),menu.mediaPlayer.getVolume(),menu.getMusicStatus(onoff));

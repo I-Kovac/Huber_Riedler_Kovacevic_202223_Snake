@@ -29,17 +29,19 @@ public class PlayfieldController {
 
     public void initialize() throws InterruptedException {
         game = new Game(new Playfield(Playfield.COLS, Playfield.ROWS, new Snake()));
-        GridPane gridPane = game.playfield.buildPlayfield();
-        stackpane.getChildren().add(gridPane);
         lengthLabel=new Label();
         lengthLabel.setText("");
         lengthLabel.setStyle("-fx-font-size: 35");
         lengthLabel.setTextFill(Color.YELLOW);
-        stackpane.getChildren().add(lengthLabel);
+
 
     }
 
     public void goButtonClick() throws InterruptedException {
+        GridPane gridPane = game.playfield.buildPlayfield();
+        stackpane.getChildren().add(gridPane);
+        stackpane.getChildren().add(lengthLabel);
+
         goButton.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
             if (game.playfield.snake.isHasMoved()) {
                 if ((key.getCode() == KeyCode.W || key.getCode() == KeyCode.UP) && game.playfield.snake.getDirection() != Snake.DOWN) {

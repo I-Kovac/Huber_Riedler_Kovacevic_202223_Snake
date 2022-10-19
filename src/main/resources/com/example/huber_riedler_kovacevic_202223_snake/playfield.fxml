@@ -6,18 +6,16 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="background" prefHeight="396.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.PlayfieldController">
+<AnchorPane fx:id="background" prefHeight="561.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.PlayfieldController">
    <children>
       <VBox prefHeight="396.0" prefWidth="623.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="63.0" prefWidth="623.0" style="-fx-background-color: DARKOLIVEGREEN;">
+            <HBox alignment="CENTER" prefHeight="561.0" prefWidth="874.0">
                <children>
-                  <Button fx:id="goButton" mnemonicParsing="false" onAction="#goButtonClick" text="Press to Start" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="316.0" prefWidth="623.0">
-               <children>
-                  <StackPane fx:id="stackpane" alignment="TOP_LEFT" prefHeight="316.0" prefWidth="622.0" />
+                  <StackPane fx:id="stackpane" alignment="TOP_LEFT" prefHeight="562.0" prefWidth="870.0">
+                     <children>
+                        <Button fx:id="goButton" mnemonicParsing="false" onAction="#goButtonClick" text="Press to Start" StackPane.alignment="CENTER" />
+                     </children></StackPane>
                </children></HBox>
          </children>
       </VBox>
