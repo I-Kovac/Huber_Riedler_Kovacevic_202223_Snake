@@ -1,44 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="background" prefHeight="396.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.PlayfieldController">
+<AnchorPane fx:id="background" prefHeight="396.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.PlayfieldController">
    <children>
       <VBox prefHeight="396.0" prefWidth="623.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="63.0" prefWidth="623.0">
+            <HBox alignment="CENTER" prefHeight="63.0" prefWidth="623.0" style="-fx-background-color: DARKOLIVEGREEN;">
                <children>
-                  <VBox prefHeight="63.0" prefWidth="842.0">
-                     <children>
-                        <HBox alignment="BASELINE_CENTER" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label fx:id="scoreLabel" text="SCORE:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="lengthLabel" prefHeight="27.0" prefWidth="60.0" text="Label">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox alignment="BASELINE_CENTER" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="goButton" mnemonicParsing="false" onAction="#goButtonClick" text="Ready?" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  <Button fx:id="goButton" mnemonicParsing="false" onAction="#goButtonClick" text="Press to Start" />
                </children>
             </HBox>
-            <HBox fx:id="hBox" alignment="CENTER" prefHeight="316.0" prefWidth="623.0" />
+            <HBox alignment="CENTER" prefHeight="316.0" prefWidth="623.0">
+               <children>
+                  <StackPane fx:id="stackpane" alignment="TOP_LEFT" prefHeight="316.0" prefWidth="622.0" />
+               </children></HBox>
          </children>
       </VBox>
    </children>

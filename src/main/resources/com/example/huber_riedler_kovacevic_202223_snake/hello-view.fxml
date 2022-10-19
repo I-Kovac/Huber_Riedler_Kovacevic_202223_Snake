@@ -16,7 +16,7 @@
 
 <AnchorPane fx:id="background" prefHeight="421.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.huber_riedler_kovacevic_202223_snake.controller.HelloController">
    <children>
-      <BorderPane fx:id="borderPain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="765.0">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="765.0">
          <top>
             <Label alignment="CENTER" prefHeight="66.0" prefWidth="571.0" text="Welcome To Snek" textAlignment="CENTER" BorderPane.alignment="CENTER">
                <font>
@@ -27,14 +27,14 @@
          <right>
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <Label prefHeight="31.0" prefWidth="84.0" text="Select Song:">
+                  <Label prefHeight="31.0" prefWidth="150.0" text="Select Song:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                   <ComboBox fx:id="music" prefWidth="150.0" />
                   <Slider fx:id="volume" prefHeight="42.0" prefWidth="150.0" />
-                  <ToggleButton fx:id="onoff" mnemonicParsing="false" onMouseClicked="#music_button" text="ON" />
+                  <ToggleButton fx:id="onoff" mnemonicParsing="false" onMouseClicked="#music_button" prefHeight="25.0" prefWidth="152.0" text="ON" />
                </children>
                <BorderPane.margin>
                   <Insets right="35.0" />
@@ -42,14 +42,14 @@
             </VBox>
          </right>
          <bottom>
-            <HBox alignment="CENTER" prefHeight="73.0" prefWidth="620.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="128.0" prefWidth="765.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#playButtonClick" prefHeight="71.0" prefWidth="270.0" text="Play">
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#playButtonClick" prefHeight="71.0" prefWidth="270.0" text="Play">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <ComboBox fx:id="difficulty" prefHeight="71.0" prefWidth="275.0" promptText="Select Difficulty" />
+                  <ComboBox fx:id="difficulty" nodeOrientation="LEFT_TO_RIGHT" prefHeight="71.0" prefWidth="275.0" promptText="label" style="-fx-font-size: 20; -fx-alignment: center;" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="10.0" />
@@ -63,6 +63,9 @@
                </image>
             </ImageView>
          </center>
+         <left>
+            <VBox fx:id="vBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </left>
       </BorderPane>
    </children>
 </AnchorPane>

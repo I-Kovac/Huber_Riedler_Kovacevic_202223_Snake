@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class PlayfieldController {
@@ -20,17 +21,21 @@ public class PlayfieldController {
     public Button goButton;
     public boolean gameRunning = true;
     public int difficulty;
-    public Label scoreLabel;
+    public StackPane stackpane;
     AnimationTimerClass animationTimerClass;
-    public HBox hBox;
     private boolean music = false;
 
 
     public void initialize() throws InterruptedException {
         game = new Game(new Playfield(Playfield.COLS, Playfield.ROWS, new Snake()));
-        lengthLabel.setText("");
         GridPane gridPane = game.playfield.buildPlayfield();
-        hBox.getChildren().add(gridPane);
+        stackpane.getChildren().add(gridPane);
+        lengthLabel=new Label();
+        lengthLabel.setText("");
+        lengthLabel.setStyle("-fx-font-size: 35");
+        lengthLabel.setTextFill(Color.YELLOW);
+        stackpane.getChildren().add(lengthLabel);
+
     }
 
     public void goButtonClick() throws InterruptedException {
@@ -111,7 +116,7 @@ public class PlayfieldController {
             } else if (!gameRunning) {
                 Game.highscore = game.playfield.snake.getLength();
                 animationTimerClass.stop();
-                HelloController.labelHighscore.setText("Highscore"+Game.highscore);
+                HelloController.labelHighscore.setText("Highscore: "+Game.highscore);
                     Stage stage = (Stage) goButton.getScene().getWindow();
                     // do what you have to do
                     stage.close();

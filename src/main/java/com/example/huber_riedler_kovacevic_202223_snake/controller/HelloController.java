@@ -16,6 +16,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -32,9 +33,10 @@ public class HelloController {
     public Menu menu;
     public Slider volume;
     public ToggleButton onoff;
-    public BorderPane borderPain;
+
     @FXML
     public static Label labelHighscore;
+    public VBox vBox;
 
     public void initialize() {
 
@@ -44,13 +46,16 @@ public class HelloController {
 
         difficulty = menu.addDifficulties(difficulty);
 
+
         menu.playMusic();
 
         menu.volumeslider(volume);
 
         labelHighscore=new Label();
-        labelHighscore.setText("Highscore:"+ Game.highscore);
-        borderPain.setLeft(labelHighscore);
+        labelHighscore.setText("Highscore: "+ Game.highscore);
+        labelHighscore.setStyle("-fx-font-size: 15");
+
+        vBox.getChildren().add(labelHighscore);
     }
 
     public void playButtonClick() throws IOException {

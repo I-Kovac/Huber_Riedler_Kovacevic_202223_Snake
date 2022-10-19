@@ -34,7 +34,6 @@ public class Playfield {
 
     public GridPane buildPlayfield() {
 
-
         rectangles = new Rectangle[Playfield.COLS][Playfield.ROWS];
 
         GridPane gridPane = new GridPane();
