@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class PlayfieldController {
@@ -56,8 +57,13 @@ public class PlayfieldController {
                     if (music) {
                         game.stopmusic();
                     }
+                } else if (key.getCode() == KeyCode.P){
+                    game.setPaused(!game.isPaused());
                 }
-                game.playfield.snake.setHasMoved(false);
+                if (!game.isPaused()){
+                    game.playfield.snake.setHasMoved(false);
+                }
+
             }
         });
         play();
