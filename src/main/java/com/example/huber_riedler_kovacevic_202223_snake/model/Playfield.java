@@ -6,6 +6,23 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Playfield Klasse, die das Spielfeld repräsentiert
+ * Konstanten:
+ *  SNAKECOLOR: die Farbe der Schlange
+ *  BACKGROUNDCOLOR: die Farbe des Hintergrunds auf dem sich dei Schlange bewegt
+ *  FOODCOLOR: die Farbe des Essens
+ *  COLS: Wieviele Spalten das Spielfeld besitzt
+ *  ROWS: Wieviele Zeilen das Spielfeld besitzt
+ *  EMPTY: Der Zustand eines Feldes wenn es nicht mit Essen oder der Schlange befüllt ist
+ *  SNAKE: Der Zustand eines Feldes wenn sich die Schlange darauf bewegt
+ *  FOOD: Der Zustand eines Feldes wenn sich Essen darauf befindet
+ * Eigenschaften:
+ *  snake: die Schlange
+ *  foodPosition: die Position auf der sich gerade Essen befindet
+ *  rectangles: ein zweidimensionales Array mit den Rechtecken(eigentlich Quadraten), mit denen das Spielfeld visualisiert wird
+ *  playfield: ein zweidimensionales Array aus Positions(der logische Aufbau des Spielfelds)
+ */
 public class Playfield {
     public static final Paint SNAKECOLOR = Color.BLACK;
     public static final Paint BACKGROUNDCOLOR = Color.GREEN;
@@ -22,6 +39,12 @@ public class Playfield {
     //
     private int playfield[][];
 
+    /**
+     * Konstruktor
+     * @param cols wieviele Spalten das Spielfeld haben soll
+     * @param rows wieviele Zeilen das Spielfeld haben soll
+     * @param snake die Schlange mit der gespielt werden soll
+     */
     public Playfield(int cols, int rows, Snake snake) {
         this.snake = snake;
         playfield = new int[cols][rows];
@@ -32,6 +55,10 @@ public class Playfield {
         }
     }
 
+    /**
+     * baut das Spielfeld zum ersten mal auf und legt die Rechtecke zur visualisierung an
+     * @return ein javafx Gridpane, welches rectangles[][] beinhaltet
+     */
     public GridPane buildPlayfield() {
 
         rectangles = new Rectangle[Playfield.COLS][Playfield.ROWS];
@@ -46,6 +73,9 @@ public class Playfield {
         return gridPane;
     }
 
+    /**
+     * Checkt den Zustand des logischen Spielfelds und ändert die Farben der Rechtecke dementsprechend ab
+     */
     public void updatePlayfield() {
 
         for (int i = 0; i < Playfield.COLS; i++) {
@@ -67,14 +97,29 @@ public class Playfield {
         }
     }
 
+    /**
+     * generiert eine zufällige Zahl
+     * @param min minimum
+     * @param max maximum
+     * @return die zufällige Zahl
+     */
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
+    /**
+     * gibt das logische Spielfeld zurück
+     * @return das Spielfeld
+     */
     public int[][] getPlayfield() {
         return playfield;
     }
 
+    /**
+     * Checkt ob das Feld, welches die Schlange als nächstes betritt, noch den Zustand SNAKE besitzt
+     * @return true... wenn ja
+     *         false.. wenn nein
+     */
     public boolean checkForSnake() {
         boolean ret = false;
 
@@ -101,6 +146,11 @@ public class Playfield {
         return ret;
     }
 
+    /**
+     * Checkt ob sich Essen im Feld, welches die Schlange als nächstes betritt, befindet
+     * @return true...  wenn ja
+     *         false... wenn nein
+     */
     public boolean checkForFood() {
         boolean ret = false;
 
@@ -127,6 +177,9 @@ public class Playfield {
         return ret;
     }
 
+    /**
+     * setzt foodPosition auf eine zufällige, freie Position
+     */
     public void setFoodposition() {
 
         int col = getRandomNumber(1, Playfield.COLS - 2);
@@ -139,18 +192,31 @@ public class Playfield {
         foodPosition = new Position(col, row);
     }
 
+    /**
+     * setzt die Felder auf denen sich der Schwanz der Schlange befindet auf SNAKE
+     * @param i der Index vom lastPositions Array
+     */
     public void setSnakeState(int i) {
         playfield[snake.getLastPositions().get(i).getCol()][snake.getLastPositions().get(i).getRow()] = SNAKE;
     }
 
+    /**
+     * setzt die Position foodPosition im playyfield auf FOOD
+     */
     public void setFoodState() {
         playfield[foodPosition.getCol()][foodPosition.getRow()] = FOOD;
     }
 
+    /**
+     * setzt das Feld direkt hinter der Schlange von SNAKE wieder auf EMPTY
+     */
     public void setEmptyState() {
         playfield[snake.getLastPositions().get(0).getCol()][snake.getLastPositions().get(0).getRow()] = EMPTY;
     }
 
+    /**
+     * setzt das Feld, auf dem sich der Kopf der Schlange befindet, auf SNAKE
+     */
     public void setSnakefirstState() {
         playfield[snake.getCurrentPosition().getCol()][snake.getCurrentPosition().getRow()] = SNAKE;
     }
