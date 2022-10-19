@@ -26,17 +26,18 @@ import javafx.scene.shape.Rectangle;
 public class Playfield {
     public static final Paint SNAKECOLOR = Color.BLACK;
     public static final Paint BACKGROUNDCOLOR = Color.GREEN;
+    public static final Paint BORDERCOLOR = Color.DARKOLIVEGREEN;
     public static final Paint FOODCOLOR = Color.RED;
     public static final int COLS = 45;
     public static final int ROWS = 35;
     public static final int EMPTY = 0;
     public static final int SNAKE = 1;
     public static final int FOOD = 2;
+
     private Snake snake;
     private Position foodPosition;
     private boolean foodSpawned;
-    Rectangle[][] rectangles;
-    //
+    private Rectangle[][] rectangles;
     private int playfield[][];
 
     /**
@@ -82,9 +83,9 @@ public class Playfield {
             for (int j = 0; j < Playfield.ROWS; j++) {
                 if (playfield[i][j] == Playfield.EMPTY) {
                     if (i==Playfield.COLS-1 || i==0){
-                        rectangles[i][j].setFill(Color.DARKOLIVEGREEN);
+                        rectangles[i][j].setFill(BORDERCOLOR);
                     } else if (j==Playfield.ROWS-1 || j==0){
-                        rectangles[i][j].setFill(Color.DARKOLIVEGREEN);
+                        rectangles[i][j].setFill(BORDERCOLOR);
                     } else {
                         rectangles[i][j].setFill(BACKGROUNDCOLOR);
                     }

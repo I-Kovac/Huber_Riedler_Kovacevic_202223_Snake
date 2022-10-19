@@ -14,10 +14,11 @@ import java.util.Objects;
 
 public class Menu {
 
-    public MediaPlayer mediaPlayer;
     public static final int PRO = 20;
     public static final int AMATEUR = 50;
     public static final int NOOB = 80;
+    public MediaPlayer mediaPlayer;
+
 
     /**
      * Funktion um alle Dateien aus den music ordner auszulesen und als auswählbares value in die Combobox zu geben
@@ -68,7 +69,6 @@ public class Menu {
      * @param volume
      */
     public void volumeslider(Slider volume) {
-
         volume.setValue(mediaPlayer.getVolume() * 100);
         volume.valueProperty().addListener(new InvalidationListener() {
             @Override

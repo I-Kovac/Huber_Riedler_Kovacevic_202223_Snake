@@ -31,7 +31,6 @@ public class PlayfieldController {
 
     @FXML
     private Button goButton;
-
     private boolean gameRunning = true;
     private int difficulty;
 
@@ -107,7 +106,6 @@ public class PlayfieldController {
 
         private long lastupdate = 0;
 
-
         @Override
         public void handle(long l) {
             if (l - lastupdate >= 12_000_000 && gameRunning) {
@@ -163,8 +161,6 @@ public class PlayfieldController {
                         game.stopmusic();
 
                 }
-
-
             }
             lastupdate = l;
             goButton.requestFocus();
@@ -185,5 +181,4 @@ public class PlayfieldController {
             game.playMusic(value, volume);
         }
     }
-
 }

@@ -35,7 +35,6 @@ import java.util.Objects;
  *
  */
 public class HelloController {
-
     @FXML
     private ComboBox difficulty;
     @FXML
@@ -50,13 +49,11 @@ public class HelloController {
     protected static Label labelHighscore;
     @FXML
     private VBox vBox;
-
     /**
      * Neues Menü erstellen; Werte in combobox setzen;
      * Musik abspielen; volumeslider aktivieren; Highscore label erstellen und setzen;
      */
     public void initialize() {
-
         menu = new Menu();
 
         music = menu.addListofFiles(music);

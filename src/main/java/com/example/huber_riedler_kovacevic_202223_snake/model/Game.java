@@ -12,11 +12,6 @@ import java.io.File;
 public class Game {
     private Playfield play;
     private boolean paused;
-
-    public static void setHighscore(int highscore) {
-        Game.highscore = highscore;
-    }
-
     private static int highscore;
     MediaPlayer mediaPlayer;
 
@@ -61,5 +56,8 @@ public class Game {
 
     public static int getHighscore() {
         return highscore;
+    }
+    public static void setHighscore(int highscore) {
+        Game.highscore = highscore;
     }
 }
