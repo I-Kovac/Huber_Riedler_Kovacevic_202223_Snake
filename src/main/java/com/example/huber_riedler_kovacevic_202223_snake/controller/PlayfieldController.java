@@ -31,6 +31,7 @@ public class PlayfieldController {
         lengthLabel.setText("");
         GridPane gridPane = game.playfield.buildPlayfield();
         hBox.getChildren().add(gridPane);
+
     }
 
     public void goButtonClick() throws InterruptedException {
@@ -44,6 +45,7 @@ public class PlayfieldController {
                     game.playfield.snake.changeDirection("S");
                 } else if ((key.getCode() == KeyCode.A || key.getCode() == KeyCode.LEFT) && game.playfield.snake.getDirection() != Snake.RIGHT) {
                     game.playfield.snake.changeDirection("A");
+
                 } else if (key.getCode() == KeyCode.ESCAPE) {
                     Stage stage = (Stage) goButton.getScene().getWindow();
                     // do what you have to do
@@ -51,8 +53,13 @@ public class PlayfieldController {
                     if (music) {
                         game.stopmusic();
                     }
+                } else if (key.getCode() == KeyCode.P) {
+                    game.setPaused(!game.isPaused());
                 }
-                game.playfield.snake.setHasMoved(false);
+                if (!game.isPaused()) {
+                    game.playfield.snake.setHasMoved(false);
+                }
+
             }
         });
         play();
@@ -71,60 +78,63 @@ public class PlayfieldController {
         @Override
         public void handle(long l) {
             if (l - lastupdate >= 12_000_000 && gameRunning) {
-                game.playfield.setSnakefirstState();
-                for (int i = 0; i < game.playfield.snake.getLastPositions().size(); i++) {
-                    game.playfield.setSnakeState(i);
-                }
-                if (!game.playfield.foodSpawned) {
-                    game.playfield.setFoodposition();
-                    game.playfield.foodSpawned = true;
-                }
-
-                game.playfield.setFoodState();
-
-                game.playfield.updatePlayfield();
-
-                if (game.playfield.checkForSnake()) {
-                    gameRunning = false;
-                }
-
-                if (game.playfield.checkForFood() && gameRunning) {
-                    game.playfield.snake.eat();
-                    game.playfield.foodSpawned = false;
-                } else {
-                    if (game.playfield.snake.getLastPositions().size() > 0 && gameRunning) {
-                        game.playfield.setEmptyState();
+                if (!game.isPaused()) {
+                    game.playfield.setSnakefirstState();
+                    for (int i = 0; i < game.playfield.snake.getLastPositions().size(); i++) {
+                        game.playfield.setSnakeState(i);
                     }
-                    game.playfield.snake.move();
-                }
+                    if (!game.playfield.foodSpawned) {
+                        game.playfield.setFoodposition();
+                        game.playfield.foodSpawned = true;
+                    }
 
-                if (game.playfield.snake.getCurrentPosition().getRow() == Playfield.ROWS-1 || game.playfield.snake.getCurrentPosition().getRow() == 0 ||
-                        game.playfield.snake.getCurrentPosition().getCol() == Playfield.COLS-1 || game.playfield.snake.getCurrentPosition().getCol() == 0) {
-                    gameRunning = false;
-                }
-                setLengthLabel(game.playfield.snake.getLength());
-                try {
-                    Thread.sleep(difficulty);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    game.playfield.setFoodState();
+
+                    game.playfield.updatePlayfield();
+
+                    if (game.playfield.checkForSnake()) {
+                        gameRunning = false;
+                    }
+
+                    if (game.playfield.checkForFood() && gameRunning) {
+                        game.playfield.snake.eat();
+                        game.playfield.foodSpawned = false;
+                    } else {
+                        if (game.playfield.snake.getLastPositions().size() > 0 && gameRunning) {
+                            game.playfield.setEmptyState();
+                        }
+
+                        game.playfield.snake.move();
+
+                    }
+
+                    if (game.playfield.snake.getCurrentPosition().getRow() == Playfield.ROWS - 1 || game.playfield.snake.getCurrentPosition().getRow() == 0 ||
+                            game.playfield.snake.getCurrentPosition().getCol() == Playfield.COLS - 1 || game.playfield.snake.getCurrentPosition().getCol() == 0) {
+                        gameRunning = false;
+                    }
+                    setLengthLabel(game.playfield.snake.getLength());
+                    try {
+                        Thread.sleep(difficulty);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             } else if (!gameRunning) {
                 Game.highscore = game.playfield.snake.getLength();
                 animationTimerClass.stop();
-                HelloController.labelHighscore.setText("Highscore"+Game.highscore);
-                    Stage stage = (Stage) goButton.getScene().getWindow();
-                    // do what you have to do
-                    stage.close();
-                    if (music) {
-                        game.stopmusic();
+                HelloController.labelHighscore.setText("Highscore" + Game.highscore);
+                Stage stage = (Stage) goButton.getScene().getWindow();
+                // do what you have to do
+                stage.close();
+                if (music) {
+                    game.stopmusic();
 
-                    }
-
-
+                }
 
 
             }
             lastupdate = l;
+            goButton.requestFocus();
         }
     }
 
