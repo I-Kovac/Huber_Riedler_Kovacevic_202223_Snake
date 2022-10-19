@@ -19,7 +19,11 @@ public class Menu {
     public static final int AMATEUR = 50;
     public static final int NOOB = 80;
 
-
+    /**
+     * Funktion um alle Dateien aus den music ordner auszulesen und als auswählbares value in die Combobox zu geben
+     * @param comboBox in welche die Namen der Dateien gegeben werden sollen
+     * @return
+     */
     public ComboBox addListofFiles(ComboBox comboBox){
 
         File folder = new File("music");
@@ -35,6 +39,9 @@ public class Menu {
         return comboBox;
     }
 
+    /**
+     * Spielt die Intro Musik im Menü ab
+     */
     public void playMusic(){
         String path = "music/IntroMusic.mp3";
         Media media = new Media(new File(path).toURI().toString());
@@ -43,6 +50,12 @@ public class Menu {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }
 
+    /**
+     * Schwierigkeitsstufen als auswählbare values zu einer Combobox hinzufügen
+     * und das Default Value der Combobox auf das erste Element setzen
+     * @param comboBox
+     * @return
+     */
     public ComboBox addDifficulties(ComboBox comboBox) {
         String[] strs = new String[]{"Noob", "Amateur", "Pro"};
         comboBox.getItems().addAll(strs);
@@ -50,6 +63,10 @@ public class Menu {
         return comboBox;
     }
 
+    /**
+     * Listener für den Volume slider um den Wert immer up zu daten  wenn eer bewegt wird.
+     * @param volume
+     */
     public void volumeslider(Slider volume) {
 
         volume.setValue(mediaPlayer.getVolume() * 100);
@@ -65,6 +82,10 @@ public class Menu {
         mediaPlayer.stop();
     }
 
+    /**
+     * Checken auf was für einen Status der OnOFF Switch ist und je nachdem die Musik pausieren oder wieder aabspielen lassen
+     * @param onoff Der zu prüfende Switch
+     */
     public void switchmusic(ToggleButton onoff) {
         if (Objects.equals(onoff.getText(), "ON")) {
             onoff.setText("OFF");
@@ -75,6 +96,11 @@ public class Menu {
         }
     }
 
+    /**
+     * Das ausgewählte Value der difficulty combobox einen Integer Wert zuweisen
+     * @param comboBox
+     * @return Schwierigkeitsgrad in Millisekunden
+     */
     public Object getdifficulty(ComboBox comboBox) {
         int difficulty=NOOB;
         if (Objects.equals(comboBox.getValue().toString(), "Pro")) {
@@ -85,6 +111,11 @@ public class Menu {
         return difficulty;
     }
 
+    /**
+     * Überprüft den Text im Music OnOFF Button und gibt dadurch zurück ob die Musik läuft oder nicht
+     * @param b
+     * @return
+     */
     public Boolean getMusicStatus(ToggleButton b) {
         boolean play=false;
         if (Objects.equals(b.getText(), "ON")) {

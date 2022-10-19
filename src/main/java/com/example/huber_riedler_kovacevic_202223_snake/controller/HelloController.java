@@ -25,19 +25,36 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-
+/**
+ * Besitzt combobox zum auswählen des Schwierigkeitsgrades
+ * Combobox zum auswählen der zuspielenden Musik
+ * Menu welches erstellt wird beim Starten des Programms
+ * Volume Slider zum einstellen der Lautstärke
+ * ToggleButton zum ein und ausschalten der Musik
+ * Highscore Label um den Highscore der akutellen Session anzuzeigen
+ *
+ */
 public class HelloController {
 
-    public ComboBox difficulty;
-    public ComboBox music;
-    public Menu menu;
-    public Slider volume;
-    public ToggleButton onoff;
-
     @FXML
-    public static Label labelHighscore;
-    public VBox vBox;
+    private ComboBox difficulty;
+    @FXML
+    private ComboBox music;
+    @FXML
+    private Menu menu;
+    @FXML
+    private Slider volume;
+    @FXML
+    private ToggleButton onoff;
+    @FXML
+    protected static Label labelHighscore;
+    @FXML
+    private VBox vBox;
 
+    /**
+     * Neues Menü erstellen; Werte in combobox setzen;
+     * Musik abspielen; volumeslider aktivieren; Highscore label erstellen und setzen;
+     */
     public void initialize() {
 
         menu = new Menu();
@@ -46,26 +63,33 @@ public class HelloController {
 
         difficulty = menu.addDifficulties(difficulty);
 
-
         menu.playMusic();
 
         menu.volumeslider(volume);
 
         labelHighscore=new Label();
-        labelHighscore.setText("Highscore: "+ Game.highscore);
+        labelHighscore.setText("Highscore: "+ Game.getHighscore());
         labelHighscore.setStyle("-fx-font-size: 15");
 
         vBox.getChildren().add(labelHighscore);
     }
 
+    /**
+     * Musik pausieren und spiel starten
+     * @throws IOException
+     */
     public void playButtonClick() throws IOException {
         menu.stopMusic();
         openGame();
     }
 
+    /**
+     * Playfield fxml öffnen mit den gewählten werten der Comboboxen vom Menü im Controller.
+     * @throws IOException
+     */
     public void openGame() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("playfield.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),825,639);
+        Scene scene = new Scene(fxmlLoader.load(),810,628);
         PlayfieldController controller = fxmlLoader.<PlayfieldController>getController();
         controller.setDifficulty(menu.getdifficulty(difficulty));
         controller.playMusic(music.getValue().toString(),menu.mediaPlayer.getVolume(),menu.getMusicStatus(onoff));
@@ -73,7 +97,6 @@ public class HelloController {
         stage.setTitle("Game");
         stage.setScene(scene);
         stage.show();
-
     }
 
     public void music_button(MouseEvent mouseEvent) {

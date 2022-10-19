@@ -32,9 +32,9 @@ public class Playfield {
     public static final int EMPTY = 0;
     public static final int SNAKE = 1;
     public static final int FOOD = 2;
-    public Snake snake;
-    public Position foodPosition;
-    public boolean foodSpawned;
+    private Snake snake;
+    private Position foodPosition;
+    private boolean foodSpawned;
     Rectangle[][] rectangles;
     //
     private int playfield[][];
@@ -219,5 +219,21 @@ public class Playfield {
      */
     public void setSnakefirstState() {
         playfield[snake.getCurrentPosition().getCol()][snake.getCurrentPosition().getRow()] = SNAKE;
+    }
+
+    public Snake getSnake() {
+        return snake;
+    }
+
+    public Position getFoodPosition() {
+        return foodPosition;
+    }
+
+    public boolean isFoodSpawned() {
+        return foodSpawned;
+    }
+
+    public void setFoodSpawned(boolean b) {
+        foodSpawned=b;
     }
 }

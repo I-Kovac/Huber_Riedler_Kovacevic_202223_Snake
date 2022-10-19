@@ -6,19 +6,36 @@ import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 
+/**
+ * Game Klasse besteht aus einem Spielfeld ein Status ob es pausiert ist, einem Highscore und einem Mediaplayer
+ */
 public class Game {
-    public Playfield playfield;
-    protected boolean paused;
-    public static int highscore;
+    private Playfield play;
+    private boolean paused;
+
+    public static void setHighscore(int highscore) {
+        Game.highscore = highscore;
+    }
+
+    private static int highscore;
     MediaPlayer mediaPlayer;
 
+    /**
+     *Setzen der Eigenschaften
+     */
     public Game(Playfield playfield) {
-        this.playfield = playfield;
+        this.play = playfield;
         highscore = 0;
         paused = false;
     }
 
-
+    /**
+     *
+     * @param value der Name der Datei von welcher das Lied gespielt werden soll
+     * @param volume in welcher Lautstärke die Musik abgespielt werden soll, gesetzt im Menu
+     * Lied in SChleife laufen lassen
+     * Lautstärke auf den im Menu gesetzten Wert geben
+     */
     public void playMusic(String value, double volume) {
         Media media = new Media(new File("music\\" + value).toURI()+".mp3");
         mediaPlayer = new MediaPlayer(media);
@@ -36,5 +53,13 @@ public class Game {
     }
     public void setPaused(boolean paused) {
         this.paused = paused;
+    }
+
+    public Playfield getPlayfield() {
+        return play;
+    }
+
+    public static int getHighscore() {
+        return highscore;
     }
 }
