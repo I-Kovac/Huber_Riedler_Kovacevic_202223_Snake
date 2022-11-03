@@ -12,5 +12,5 @@ After Dying, you get back to the menue an now will see a new highscore:\
 <img src="imgs/Highscore.png">
 
 
-[Das Team](ourTeam.md)
+[Das Team](ourTeam.md)\
 [Das Trello](Trello.md)
