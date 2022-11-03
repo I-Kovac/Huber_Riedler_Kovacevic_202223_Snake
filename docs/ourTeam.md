@@ -7,5 +7,5 @@ Constantin Riedler
      alt="HURENSOHN"/>
 
 Julian Huber
-<img src="Julian.png"
+<img src="/img/WIN_20221103_11_08_11_Pro.jpg"
      alt="HURENSOHN"/>
