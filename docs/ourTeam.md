@@ -2,5 +2,3 @@
 {{element.firstname}} {{element.lastname}} <br/>
 <img src="{{element.image}}" alt="element.firstname"/>
 {% endfor %}
-
-change2
