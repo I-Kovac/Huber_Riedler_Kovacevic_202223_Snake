@@ -2,3 +2,5 @@
 {{element.firstname}} {{element.lastname}} <br/><img src={{element.image}}
      alt="HURENSOHN"/>
 {% endfor %}
+
+change
