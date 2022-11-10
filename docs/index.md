@@ -4,7 +4,7 @@ title: Home
 ---
 <body style="background-color:#808080">
 
-Our Main menua: 
+Our Main menu: 
 <img src="imgs/MainMenu.png"> \
 It is possibly to change the music: 
 <img src="imgs/ChangeMusic.png"> \
