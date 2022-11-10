@@ -1,4 +1,4 @@
-<body style="background-color:rgba(0, 0, 0, 0.0470588)">
+<body style="background-color:#808080">
 
 
 Our Main menu:
