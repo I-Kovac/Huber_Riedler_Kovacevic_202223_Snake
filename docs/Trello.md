@@ -1,4 +1,8 @@
-# Trello
+---
+layout: page
+title: Trello
+permalink: /trello/
+---
 
 <div style:"background-color:rgba(0, 0, 0, 0.0470588)">
 Zur Organisation mit Scrum wurde Trello verwendet. 
