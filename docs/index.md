@@ -1,5 +1,9 @@
+---
+layout: page
+title: Home
+permalink: /home/
+---
 <body style="background-color:#808080">
-
 
 Our Main menu:
 <img src="imgs/MainMenu.png">\
