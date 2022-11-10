@@ -1,7 +1,6 @@
 ---
 layout: page
 title: Home
-permalink: /home/
 ---
 <body style="background-color:#808080">
 
@@ -16,8 +15,4 @@ Once u click Play you'll be able to play the game:\
 After Dying, you get back to the menue an now will see a new highscore:\
 <img src="imgs/Highscore.png">\
 
-
-[Das Team](ourTeam.md)\
-[Das Trello](Trello.md)
-
- </body>
+</body>
