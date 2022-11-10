@@ -12,5 +12,6 @@ Zu den einzelene Aufgaben wurde eine genaue Beschreibung hinzugefügt.
 
 <img src="imgs/Trello.png" alt="Trello Board">
 
+
 </div>
 
