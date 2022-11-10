@@ -3,7 +3,7 @@
 
 Our Main menu:
 <img src="imgs/MainMenu.png">\
-It is possibly to change the music:
+It is possibly to change the music:</br>
 <img src="imgs/ChangeMusic.png">\
 Such as the difficulty:
 <img src="imgs/Difficulty.png">\
